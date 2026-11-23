@@ -1,4 +1,6 @@
 ---
+import { getImageDimensions } from "../utils/image-dimensions";
+
 interface Props {
   lang?: "id" | "en";
 }
@@ -59,12 +61,18 @@ const aboutHref = isID ? "#tentang" : "#about";
         </a>
       </div>
 
-      <div class="hero-socials" aria-label="Social media">
+      <div
+        class="hero-socials"
+        role="group"
+        aria-label={isID ? "Tautan media sosial" : "Social media links"}
+      >
         <a
           href="https://github.com/rizkiikzir"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="GitHub Muhammad Rizki (buka tab baru)"
+          aria-label={isID
+            ? "GitHub Muhammad Rizki (buka tab baru)"
+            : "GitHub Muhammad Rizki (opens in a new tab)"}
         >
           <span>GitHub</span>
           <span class="arrow" aria-hidden="true">↗</span>
@@ -74,7 +82,9 @@ const aboutHref = isID ? "#tentang" : "#about";
           href="https://www.linkedin.com/in/muhammadrizki4310/"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="LinkedIn Muhammad Rizki (buka tab baru)"
+          aria-label={isID
+            ? "LinkedIn Muhammad Rizki (buka tab baru)"
+            : "LinkedIn Muhammad Rizki (opens in a new tab)"}
         >
           <span>LinkedIn</span>
           <span class="arrow" aria-hidden="true">↗</span>
@@ -88,6 +98,10 @@ const aboutHref = isID ? "#tentang" : "#about";
           class="portrait-image"
           src="/images/profile.jpg"
           alt="Foto potret Muhammad Rizki"
+          {...getImageDimensions("/images/profile.jpg")}
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
         />
         <figcaption class="portrait-caption">
           {content.photoCaption}

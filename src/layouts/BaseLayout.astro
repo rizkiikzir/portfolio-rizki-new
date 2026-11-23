@@ -67,9 +67,12 @@ const resolvedDescription =
   </head>
 
   <body>
+    <a class="skip-link" href="#main-content">
+      {isID ? "Lewati ke konten utama" : "Skip to main content"}
+    </a>
     <SiteHeader lang={lang} />
 
-    <main id="main-content">
+    <main id="main-content" tabindex="-1">
       <slot />
     </main>
 

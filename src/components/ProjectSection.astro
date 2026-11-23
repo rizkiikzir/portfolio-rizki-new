@@ -1,4 +1,6 @@
 ---
+import { getImageDimensions } from "../utils/image-dimensions";
+
 interface Props {
   lang?: "id" | "en";
 }
@@ -179,6 +181,7 @@ const content = {
                 <img
                   src={project.image}
                   alt={project.imageAlt}
+                  {...getImageDimensions(project.image)}
                   loading="lazy"
                   decoding="async"
                 />
