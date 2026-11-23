@@ -26,7 +26,7 @@ const content = {
   <div class="container">
     <div class="footer-main">
       <div class="footer-brand">
-        <a class="brand-link" href={isID ? "/" : "/en/"}>
+        <a class="brand-link" href={isID ? "/" : "/en"}>
           <Network
             class="brand-icon"
             size={18}
@@ -38,22 +38,31 @@ const content = {
         <p>{content.description}</p>
       </div>
 
+
       <div class="footer-actions">
         <div
-  class="footer-socials"
-  aria-label={isID ? "Tautan media sosial" : "Social links"}
->
+          class="footer-socials"
+          role="group"
+          aria-label={isID ? "Tautan media sosial" : "Social links"}
+        >
           <a
             href="https://github.com/rizkiikzir"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={isID
+              ? "GitHub Muhammad Rizki (buka tab baru)"
+              : "GitHub Muhammad Rizki (opens in a new tab)"}
           >
             GitHub ↗
           </a>
+
           <a
             href="https://www.linkedin.com/in/muhammadrizki4310/"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={isID
+              ? "LinkedIn Muhammad Rizki (buka tab baru)"
+              : "LinkedIn Muhammad Rizki (opens in a new tab)"}
           >
             LinkedIn ↗
           </a>
@@ -64,6 +73,7 @@ const content = {
           <span class="arrow-up" aria-hidden="true">↑</span>
         </a>
       </div>
+
     </div>
 
     <div class="footer-bottom">

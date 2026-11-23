@@ -1,4 +1,6 @@
 ---
+import { getImageDimensions } from "../utils/image-dimensions";
+
 interface Props {
   lang?: "id" | "en";
 }
@@ -91,19 +93,19 @@ const content = {
           ],
           photos: [
             {
-              src: "/images/experience/pln1.jpg",
+              src: "/images/experience/pln1.webp",
               alt: "Internship documentation at PT PLN UP3 Lhokseumawe",
             },
             {
-              src: "/images/experience/pln2.jpg",
+              src: "/images/experience/pln2.webp",
               alt: "Work activity during the PLN internship",
             },
             {
-              src: "/images/experience/pln3.jpg",
+              src: "/images/experience/pln3.webp",
               alt: "Electricity network data processing documentation",
             },
             {
-              src: "/images/experience/pln4.jpg",
+              src: "/images/experience/pln4.webp",
               alt: "Workplace documentation during the PLN internship",
             },
           ],
@@ -121,19 +123,19 @@ const content = {
           ],
           photos: [
             {
-              src: "/images/experience/difa1.jpg",
+              src: "/images/experience/difa1.webp",
               alt: "Internship documentation at Difa Computer",
             },
             {
-              src: "/images/experience/difa2.jpg",
+              src: "/images/experience/difa2.webp",
               alt: "Computer inspection activity at Difa Computer",
             },
             {
-              src: "/images/experience/difa3.jpg",
+              src: "/images/experience/difa3.webp",
               alt: "Computer maintenance documentation at Difa Computer",
             },
             {
-              src: "/images/experience/difa4.jpg",
+              src: "/images/experience/difa4.webp",
               alt: "Technician activity during the Difa Computer internship",
             },
           ],
@@ -165,7 +167,11 @@ const content = {
               {entry.location}
             </span>
 
-            <div class="experience-tools" aria-label="Tools & Technologies">
+            <div
+              class="experience-tools"
+              role="group"
+              aria-label={isID ? "Alat dan teknologi" : "Tools & Technologies"}
+            >
               {entry.tools.map((tool) => (
                 <span class="tool-tag">{tool}</span>
               ))}
@@ -192,6 +198,7 @@ const content = {
                   <img
                     src={photo.src}
                     alt={photo.alt}
+                    {...getImageDimensions(photo.src)}
                     loading="lazy"
                     decoding="async"
                   />

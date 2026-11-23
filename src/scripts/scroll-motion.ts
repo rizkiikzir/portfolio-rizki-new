@@ -18,6 +18,8 @@ if (!prefersReducedMotion && root.dataset.motionReady !== "true") {
   let lenis: Lenis | null = null;
   let lenisTicker: ((time: number) => void) | null = null;
   let motionContext: gsap.Context | null = null;
+  const stopLenisForMobileNav = () => lenis?.stop();
+  const startLenisAfterMobileNav = () => lenis?.start();
 
   try {
     // ========================================
@@ -29,6 +31,15 @@ if (!prefersReducedMotion && root.dataset.motionReady !== "true") {
       anchors: true,
       respectReducedMotion: true,
     });
+
+    window.addEventListener(
+      "portfolio:mobile-nav-open",
+      stopLenisForMobileNav
+    );
+    window.addEventListener(
+      "portfolio:mobile-nav-close",
+      startLenisAfterMobileNav
+    );
 
     // ========================================
     // 02. GSAP CONTEXT
@@ -586,6 +597,14 @@ if (portrait) {
     // Batalkan animasi yang sempat dibuat agar tidak ada elemen
     // yang tertinggal dalam kondisi tersembunyi.
     motionContext?.revert();
+    window.removeEventListener(
+      "portfolio:mobile-nav-open",
+      stopLenisForMobileNav
+    );
+    window.removeEventListener(
+      "portfolio:mobile-nav-close",
+      startLenisAfterMobileNav
+    );
 
     if (lenisTicker) {
       gsap.ticker.remove(lenisTicker);

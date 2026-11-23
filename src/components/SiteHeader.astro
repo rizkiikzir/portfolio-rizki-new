@@ -69,6 +69,7 @@ const navItems = isIndonesian
 
       <div
         class="language-switch"
+        role="group"
         aria-label={isIndonesian ? "Pilihan bahasa" : "Language selection"}
       >
         <a
@@ -115,11 +116,20 @@ const navItems = isIndonesian
     </button>
   </div>
 
+  <div
+    class="mobile-nav-backdrop"
+    data-menu-backdrop
+    data-lenis-prevent
+    aria-hidden="true"
+  ></div>
+
   <nav
     class="mobile-nav"
     id="mobile-navigation"
     aria-label={isIndonesian ? "Navigasi mobile" : "Mobile navigation"}
     aria-hidden="true"
+    inert
+    data-lenis-prevent
     data-mobile-nav
   >
     <div class="mobile-nav-inner">
@@ -127,7 +137,11 @@ const navItems = isIndonesian
         <a href={item.href}>{item.label}</a>
       ))}
 
-      <div class="mobile-language-switch">
+      <div
+        class="mobile-language-switch"
+        role="group"
+        aria-label={isIndonesian ? "Pilihan bahasa" : "Language selection"}
+      >
         <a
           href={idPath}
           lang="id"
@@ -261,7 +275,8 @@ const navItems = isIndonesian
   }
 
   .menu-toggle,
-  .mobile-nav {
+  .mobile-nav,
+  .mobile-nav-backdrop {
     display: none;
   }
 
@@ -311,6 +326,21 @@ const navItems = isIndonesian
       color: var(--color-text-primary);
     }
 
+    .mobile-nav-backdrop {
+      position: fixed;
+      inset: 56px 0 0;
+      z-index: 1;
+      display: block;
+      visibility: hidden;
+      background: transparent;
+      pointer-events: none;
+    }
+
+    .mobile-nav-backdrop.is-open {
+      visibility: visible;
+      pointer-events: auto;
+    }
+
     .menu-toggle svg {
       stroke: currentColor;
       stroke-width: 2;
@@ -324,6 +354,7 @@ const navItems = isIndonesian
       display: block;
       width: min(360px, 100%);
       height: calc(100dvh - 56px);
+      z-index: 2;
       overflow-y: auto;
       background: var(--color-surface);
       border-left: 1px solid var(--color-border);
@@ -393,8 +424,21 @@ const navItems = isIndonesian
     "[data-mobile-nav]"
   );
 
-  if (menuButton && mobileNav) {
+  const menuBackdrop = document.querySelector<HTMLElement>(
+    "[data-menu-backdrop]"
+  );
+
+  if (menuButton && mobileNav && menuBackdrop) {
+    let previousOverflow = "";
+
     const closeMenu = () => {
+      if (menuButton.getAttribute("aria-expanded") !== "true") return;
+
+      const focusTarget = window.matchMedia("(min-width: 768px)").matches
+        ? document.querySelector<HTMLElement>(".desktop-nav a")
+        : menuButton;
+      focusTarget?.focus();
+
       menuButton.setAttribute("aria-expanded", "false");
       menuButton.setAttribute(
         "aria-label",
@@ -402,35 +446,81 @@ const navItems = isIndonesian
       );
 
       mobileNav.classList.remove("is-open");
+      mobileNav.inert = true;
       mobileNav.setAttribute("aria-hidden", "true");
+      menuBackdrop.classList.remove("is-open");
+      document.documentElement.style.overflow = previousOverflow;
+      window.dispatchEvent(new Event("portfolio:mobile-nav-close"));
+    };
+
+    const openMenu = () => {
+      const scrollPosition = window.scrollY;
+      previousOverflow = document.documentElement.style.overflow;
+      window.dispatchEvent(new Event("portfolio:mobile-nav-open"));
+      document.documentElement.style.overflow = "hidden";
+      window.scrollTo(0, scrollPosition);
+      menuButton.setAttribute("aria-expanded", "true");
+      menuButton.setAttribute("aria-label", menuButton.dataset.labelClose ?? "");
+      mobileNav.classList.add("is-open");
+      mobileNav.setAttribute("aria-hidden", "false");
+      mobileNav.inert = false;
+      menuBackdrop.classList.add("is-open");
     };
 
     menuButton.addEventListener("click", () => {
-      const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+      if (menuButton.getAttribute("aria-expanded") === "true") {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
 
-      menuButton.setAttribute("aria-expanded", String(!isOpen));
-      menuButton.setAttribute(
-        "aria-label",
-        isOpen
-          ? menuButton.dataset.labelOpen ?? "Open navigation menu"
-          : menuButton.dataset.labelClose ?? "Close navigation menu"
-      );
-
-      mobileNav.classList.toggle("is-open", !isOpen);
-      mobileNav.setAttribute("aria-hidden", String(isOpen));
+    menuBackdrop.addEventListener("click", () => {
+      closeMenu();
     });
 
     mobileNav.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", closeMenu);
+      link.addEventListener("click", () => closeMenu());
     });
 
     document.addEventListener("keydown", (event) => {
-      if (
-        event.key === "Escape" &&
-        menuButton.getAttribute("aria-expanded") === "true"
-      ) {
+      if (menuButton.getAttribute("aria-expanded") !== "true") return;
+
+      if (event.key === "Escape") {
         closeMenu();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const links = Array.from(
+        mobileNav.querySelectorAll<HTMLAnchorElement>("a")
+      );
+      const firstLink = links[0];
+      const lastLink = links[links.length - 1];
+      const activeElement = document.activeElement;
+
+      if (activeElement === menuButton) {
+        event.preventDefault();
+        (event.shiftKey ? lastLink : firstLink)?.focus();
+      } else if (event.shiftKey && activeElement === firstLink) {
+        event.preventDefault();
         menuButton.focus();
+      } else if (
+        !event.shiftKey &&
+        activeElement === lastLink
+      ) {
+        event.preventDefault();
+        menuButton.focus();
+      } else if (!mobileNav.contains(activeElement)) {
+        event.preventDefault();
+        (event.shiftKey ? lastLink : firstLink)?.focus();
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.matchMedia("(min-width: 768px)").matches) {
+        closeMenu();
       }
     });
   }

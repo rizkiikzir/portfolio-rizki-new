@@ -368,7 +368,8 @@ JavaScript hanya digunakan ketika diperlukan. Interaksi yang direncanakan pada r
 
 - Membuka dan menutup menu navigasi mobile.
 - Mengelola state `aria-expanded` dan atribut aksesibilitas menu.
-- Menutup menu mobile setelah pengunjung memilih tautan.
+- Menutup menu mobile dengan Escape, backdrop, atau setelah pengunjung memilih tautan; fokus dikembalikan ke kontrol navigasi yang sesuai.
+- Mengunci scroll halaman di belakang drawer dan menghentikan sementara Lenis saat menu terbuka; scroll drawer tetap tersedia.
 - Mendukung navigasi anchor dan language switcher melalui tautan HTML biasa.
 
 Menu harus tetap mempunyai struktur tautan HTML yang dapat diakses. Hindari memuat framework JavaScript besar hanya untuk menu mobile atau pergantian bahasa.
@@ -386,7 +387,8 @@ Setiap halaman harus mempunyai:
 - Canonical URL setelah domain website ditentukan.
 - `lang` dokumen yang sesuai dengan bahasa halaman.
 - Open Graph title, description, URL, dan image jika aset gambar yang sesuai sudah tersedia.
-- Alternate language (`hreflang`) untuk halaman padanan Indonesia dan Inggris.
+- Alternate language (`hreflang`) dengan URL absolut untuk halaman padanan Indonesia dan Inggris setelah domain final ditentukan.
+- `og:url` dan canonical URL hanya setelah origin produksi dapat dipastikan.
 
 ### 7.2 Static Metadata
 
@@ -397,7 +399,7 @@ Homepage dan setiap halaman detail proyek memiliki metadata masing-masing. Janga
 ### 7.3 Domain, Sitemap, dan Robots
 
 - Domain produksi belum ditentukan. Jangan membuat URL domain final atau canonical palsu.
-- Setelah domain tersedia, tetapkan konfigurasi `site` Astro dan buat sitemap.
+- Setelah domain tersedia, tetapkan konfigurasi `site` Astro, lengkapi metadata URL absolut, dan buat sitemap.
 - `robots.txt` harus mencerminkan domain dan sitemap produksi yang sebenarnya.
 - Jangan memblokir halaman portofolio yang memang ingin ditampilkan kepada recruiter.
 

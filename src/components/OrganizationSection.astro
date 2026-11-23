@@ -1,4 +1,6 @@
 ---
+import { getImageDimensions } from "../utils/image-dimensions";
+
 interface Props {
   lang?: "id" | "en";
 }
@@ -72,13 +74,11 @@ const content = {
           </div>
 
           <div class="organization-content">
-            <div
-              class="organization-logo"
-              aria-label={`Logo ${entry.organization}`}
-            >
+            <div class="organization-logo">
               <img
                 src={entry.logo}
                 alt={`Logo ${entry.organization}`}
+                {...getImageDimensions(entry.logo)}
                 loading="lazy"
                 decoding="async"
                 data-organization-logo

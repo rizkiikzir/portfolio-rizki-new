@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getImageDimensions } from "../../../utils/image-dimensions";
 
 // Ubah ke "en" jika file ini digunakan untuk rute bahasa Inggris (/en/projects/[slug])
 const lang: "id" | "en" = "en";
@@ -672,11 +673,13 @@ const ui = {
   repoLabel: isID ? "Lihat Repository GitHub" : "View GitHub Repository",
   designLabel: isID ? "Lihat Desain Figma" : "View Figma Design",
 };
+
+const pageTitleSuffix = isID ? "Proyek Muhammad Rizki" : "Muhammad Rizki Portfolio";
 ---
 
 <BaseLayout
   lang={lang}
-  title={`${project.title} - Muhammad Rizki`}
+  title={`${project.title} | ${pageTitleSuffix}`}
   description={project.summary}
 >
   <div class="container">
@@ -746,6 +749,7 @@ const ui = {
                   <img
                     src={slide.src}
                     alt={slide.alt}
+                    {...getImageDimensions(slide.src)}
                     loading={index === 0 ? "eager" : "lazy"}
                     decoding="async"
                   />
@@ -855,6 +859,7 @@ const ui = {
                         <img
                           src={image.src}
                           alt={image.alt}
+                          {...getImageDimensions(image.src)}
                           loading="lazy"
                           decoding="async"
                         />
