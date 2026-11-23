@@ -1,0 +1,1659 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+// Ubah ke "en" jika file ini digunakan untuk rute bahasa Inggris (/en/projects/[slug])
+const lang: "id" | "en" = "en";
+const isID = lang === "id";
+
+type FrameType = "browser" | "mobile" | "tablet";
+
+interface ProjectImage {
+  src: string;
+  alt: string;
+  caption: string;
+}
+
+interface DocumentationGroup {
+  title: string;
+  description: string;
+  images: ProjectImage[];
+  mobile?: boolean;
+}
+
+interface Project {
+  slug: string;
+  title: string;
+  category: string;
+  frameType: FrameType;
+  summary: string;
+  overview: string;
+  activities: string[];
+  technologies: string[];
+  slides: ProjectImage[];
+  documentation: DocumentationGroup[];
+  repository?: string;
+  design?: string;
+  note?: string;
+}
+
+interface Props {
+  project: Project;
+}
+
+export function getStaticPaths() {
+  const currentLang: "id" | "en" = "en";
+
+  const projectsByLang: Record<"id" | "en", Project[]> = {
+    id: [
+      // ==========================================
+      // 01. SERIN (ID)
+      // ==========================================
+      {
+        slug: "emosi-deteksi",
+        title: "SERIN - Smart Emotion Recognition for Integrated Counseling",
+        category: "Tugas Akhir • Web Application • Computer Vision",
+        frameType: "browser",
+        summary:
+          "Prototipe aplikasi web untuk membantu konselor memantau ekspresi emosi mahasiswa selama sesi konseling melalui pengenalan wajah secara real-time.",
+        overview:
+          "SERIN merupakan proyek tugas akhir berupa sistem pendukung konseling berbasis web. Sistem menggunakan model LightExNet V2 untuk mengklasifikasikan ekspresi wajah ke dalam lima kategori emosi: Senang, Sedih, Marah, Takut, dan Netral. Hasil deteksi ditampilkan melalui dashboard dan monitoring sesi, disimpan sebagai log serta penanda momen penting, lalu disusun menjadi laporan konseling yang dapat diekspor ke PDF. Pada pengujian data uji yang dilaporkan dalam penelitian, model memperoleh akurasi 80,55%. SERIN ditujukan sebagai alat bantu observasi awal, bukan alat diagnosis psikologis atau pengganti konselor.",
+        activities: [
+          "Menyiapkan dan mengolah dataset citra wajah untuk lima kategori emosi.",
+          "Melakukan preprocessing citra, termasuk grayscale, resize 48×48 piksel, dan normalisasi nilai piksel.",
+          "Mengembangkan serta melatih model CNN LightExNet V2 dan mengevaluasinya menggunakan accuracy, precision, recall, F1-score, serta confusion matrix.",
+          "Mengintegrasikan deteksi wajah Haar Cascade dan preprocessing OpenCV dengan backend FastAPI untuk prediksi melalui webcam secara real-time.",
+          "Mengembangkan alur aplikasi untuk pengelolaan mahasiswa dan sesi, monitoring, pencatatan emosi, marker, riwayat laporan, detail laporan, serta ekspor PDF.",
+        ],
+        technologies: [
+          "Python",
+          "React",
+          "Vite",
+          "JavaScript",
+          "FastAPI",
+          "SQLite",
+          "SQLAlchemy",
+          "TensorFlow",
+          "Keras",
+          "OpenCV",
+          "Haar Cascade",
+          "LightExNet V2",
+          "jsPDF",
+        ],
+        slides: [
+          {
+            src: "/images/projects/serin/01-dashboard.png",
+            alt: "Dashboard SERIN yang menampilkan ringkasan mahasiswa, sesi konseling, laporan, dan distribusi emosi.",
+            caption: "Dashboard konselor",
+          },
+          {
+            src: "/images/projects/serin/02-monitoring-realtime.png",
+            alt: "Halaman monitoring SERIN dengan webcam, prediksi emosi, probabilitas, dan distribusi emosi sementara.",
+            caption: "Monitoring ekspresi emosi secara real-time",
+          },
+          {
+            src: "/images/projects/serin/03-laporan-timeline.png",
+            alt: "Laporan sesi SERIN yang menampilkan ringkasan emosi dan grafik sebaran emosi berdasarkan waktu.",
+            caption: "Laporan sesi dan timeline emosi",
+          },
+          {
+            src: "/images/projects/serin/04-detail-laporan.png",
+            alt: "Halaman detail laporan SERIN dengan ringkasan emosi, interpretasi awal sistem, informasi sesi, dan momen penting.",
+            caption: "Detail laporan konseling",
+          },
+          {
+            src: "/images/projects/serin/05-riwayat-laporan.png",
+            alt: "Halaman riwayat laporan SERIN dengan pencarian, filter, dan daftar hasil sesi konseling.",
+            caption: "Riwayat laporan konseling",
+          },
+        ],
+        documentation: [
+          {
+            title: "Arsitektur Model",
+            description:
+              "Diagram arsitektur model LightExNet V2 yang digunakan dalam proses klasifikasi lima kategori emosi.",
+            images: [
+              {
+                src: "/images/projects/serin/documentation/02-arsitektur-lightexnet.png",
+                alt: "Diagram arsitektur LightExNet V2 yang digunakan pada model pengenalan emosi wajah.",
+                caption: "Arsitektur LightExNet V2",
+              },
+            ],
+          },
+          {
+            title: "Training dan Evaluasi Model",
+            description:
+              "Visualisasi proses pelatihan serta evaluasi klasifikasi model pada data uji.",
+            images: [
+              {
+                src: "/images/projects/serin/documentation/03-accuracy-loss.png",
+                alt: "Grafik accuracy dan loss selama proses pelatihan model.",
+                caption: "Grafik accuracy dan loss",
+              },
+              {
+                src: "/images/projects/serin/documentation/04-confusion-matrix.png",
+                alt: "Confusion matrix untuk lima kategori klasifikasi emosi wajah.",
+                caption: "Confusion matrix",
+              },
+            ],
+          },
+          {
+            title: "Contoh Laporan PDF",
+            description:
+              "Contoh hasil ekspor laporan konseling yang merangkum informasi sesi dan distribusi emosi.",
+            images: [
+              {
+                src: "/images/projects/serin/documentation/05-contoh-laporan-pdf.png",
+                alt: "Contoh dokumen PDF laporan hasil konseling dari SERIN.",
+                caption: "Ekspor laporan konseling",
+              },
+            ],
+          },
+        ],
+        repository: "https://github.com/rizkiikzir/emosi-deteksi",
+        note: "SERIN merupakan prototipe sistem pendukung konseling. Hasil klasifikasi emosi perlu ditinjau dalam konteks sesi dan tidak dimaksudkan sebagai diagnosis psikologis.",
+      },
+
+      // ==========================================
+      // 02. SIM-YANTEK (ID)
+      // ==========================================
+      {
+        slug: "sim-yantek",
+        title: "SIM-YANTEK - Aplikasi Mobile Monitoring Pelayanan Teknik",
+        category: "Proyek Magang • Aplikasi Mobile",
+        frameType: "mobile",
+        summary:
+          "Aplikasi mobile untuk mendukung pelaporan dan pemantauan progres pekerjaan pelayanan teknik di lingkungan PT PLN (Persero) UP3 Lhokseumawe.",
+        overview:
+          "SIM-YANTEK merupakan proyek aplikasi mobile yang dikembangkan selama kegiatan magang di PT PLN (Persero) UP3 Lhokseumawe bersama mentor. Aplikasi dirancang untuk membantu pengguna mengirim laporan progres pekerjaan yang dilengkapi judul, keterangan, foto bukti, tanggal, dan waktu. Laporan kemudian dapat ditinjau berdasarkan status seperti menunggu verifikasi, sedang diverifikasi, selesai, atau dikembalikan. Aplikasi menggunakan Flutter pada sisi mobile dan backend API berbasis Node.js, Express, serta TypeScript dengan PostgreSQL dan Prisma.",
+        activities: [
+          "Menyusun analisis kebutuhan dan alur sistem bersama mentor, termasuk Context Diagram, DFD Level 0 dan Level 1, serta ERD.",
+          "Mengerjakan antarmuka aplikasi mobile menggunakan Flutter dan Dart untuk halaman login, dashboard, input progres, daftar progres, serta pengaturan akun.",
+          "Mengintegrasikan autentikasi pengguna berbasis NIP dengan backend API dan token JWT.",
+          "Mengintegrasikan pengiriman laporan progres beserta foto bukti dari aplikasi mobile ke backend.",
+          "Menyusun tampilan daftar progres, pencarian, filter status, dan alur verifikasi pada antarmuka aplikasi.",
+        ],
+        technologies: [
+          "Flutter",
+          "Dart",
+          "Provider",
+          "Node.js",
+          "Express",
+          "TypeScript",
+          "Prisma ORM",
+          "PostgreSQL",
+          "JWT",
+          "bcryptjs",
+          "local_auth",
+          "Flutter Secure Storage",
+          "image_picker",
+        ],
+        slides: [
+          {
+            src: "/images/projects/sim-yantek/01-login.png",
+            alt: "Halaman login aplikasi SIM-YANTEK dengan autentikasi menggunakan NIP dan password.",
+            caption: "Login pengguna",
+          },
+          {
+            src: "/images/projects/sim-yantek/02-dashboard.png",
+            alt: "Dashboard SIM-YANTEK yang menampilkan menu input progres dan ringkasan status pekerjaan.",
+            caption: "Dashboard progres pekerjaan",
+          },
+          {
+            src: "/images/projects/sim-yantek/03-input-progress.png",
+            alt: "Form input progres pekerjaan dengan judul, foto bukti, tanggal, waktu, dan keterangan.",
+            caption: "Form input progres",
+          },
+          {
+            src: "/images/projects/sim-yantek/04-daftar-progress.png",
+            alt: "Daftar progres pekerjaan dengan pencarian dan filter status verifikasi.",
+            caption: "Daftar dan status progres",
+          },
+          {
+            src: "/images/projects/sim-yantek/05-pengembalian-progress.png",
+            alt: "Dialog pengembalian laporan progres dengan kolom keterangan pengembalian.",
+            caption: "Proses pengembalian laporan",
+          },
+        ],
+        documentation: [
+          {
+            title: "Perancangan dan Alur Sistem",
+            description:
+              "Dokumentasi analisis dan perancangan yang menjadi dasar pengembangan aplikasi SIM-YANTEK.",
+            images: [
+              {
+                src: "/images/projects/sim-yantek/documentation/01-context-diagram.png",
+                alt: "Context Diagram SIM-YANTEK yang menggambarkan hubungan pengguna, admin, dan sistem.",
+                caption: "Context Diagram",
+              },
+              {
+                src: "/images/projects/sim-yantek/documentation/02-dfd-level-0.png",
+                alt: "Data Flow Diagram Level 0 SIM-YANTEK.",
+                caption: "DFD Level 0",
+              },
+              {
+                src: "/images/projects/sim-yantek/documentation/03-dfd-authentication.png",
+                alt: "DFD Level 1 untuk proses autentikasi dan manajemen akun.",
+                caption: "DFD Level 1 - Autentikasi dan akun",
+              },
+              {
+                src: "/images/projects/sim-yantek/documentation/04-dfd-progress.png",
+                alt: "DFD Level 1 untuk proses pengelolaan data progres pekerjaan.",
+                caption: "DFD Level 1 - Pengelolaan progres",
+              },
+              {
+                src: "/images/projects/sim-yantek/documentation/05-dfd-verifikasi.png",
+                alt: "DFD Level 1 untuk proses verifikasi laporan progres.",
+                caption: "DFD Level 1 - Verifikasi",
+              },
+              {
+                src: "/images/projects/sim-yantek/documentation/06-erd.png",
+                alt: "Entity Relationship Diagram untuk basis data SIM-YANTEK.",
+                caption: "Entity Relationship Diagram",
+              },
+            ],
+          },
+          {
+            title: "Pengaturan Akun",
+            description:
+              "Contoh antarmuka pengaturan akun dan keamanan pada aplikasi mobile.",
+            mobile: true,
+            images: [
+              {
+                src: "/images/projects/sim-yantek/documentation/07-account-settings.png",
+                alt: "Halaman akun SIM-YANTEK dengan menu edit profil, keamanan, bantuan, dan informasi aplikasi.",
+                caption: "Menu akun dan pengaturan",
+              },
+            ],
+          },
+        ],
+        repository: "https://github.com/rizkiikzir/monitoring-yantek",
+        note: "Proyek dikerjakan bersama mentor selama magang. Repository yang diperiksa memperlihatkan implementasi prototipe; beberapa alur pengelolaan progres pada aplikasi masih memerlukan penyempurnaan integrasi.",
+      },
+
+      // ==========================================
+      // 03. TERAS KITA (ID)
+      // ==========================================
+      {
+        slug: "teras-kita",
+        title: "Teras Kita - POS Cafe",
+        category: "UI/UX Design • Point of Sale (POS)",
+        frameType: "tablet",
+        summary:
+          "Rancangan UI/UX sistem Point of Sale (POS) untuk kafe, mencakup alur pemesanan, pemilihan menu dan meja, pemantauan pesanan, laporan transaksi, serta struk pembayaran.",
+        overview:
+          "Teras Kita merupakan proyek perancangan antarmuka aplikasi POS untuk kebutuhan operasional kafe. File Figma menampilkan alur mulai dari login dan dashboard operasional, pembuatan pesanan Dine In atau Takeaway, pemilihan menu berdasarkan kategori Food, Drink, dan Snack, pemilihan meja, hingga laporan transaksi dan struk pembayaran. Fokus proyek ini adalah perancangan alur dan antarmuka pengguna menggunakan Figma. Desain yang tersedia menjadi dokumentasi rancangan UI/UX, bukan bukti bahwa aplikasi POS lengkap telah dirilis atau digunakan secara operasional.",
+        activities: [
+          "Merancang antarmuka login dan dashboard yang menyajikan ringkasan pesanan baru, total pesanan, dan waiting list.",
+          "Menyusun alur pembuatan pesanan Dine In dan Takeaway, termasuk input nama pelanggan, jumlah tamu, dan pemilihan meja.",
+          "Merancang tampilan pemilihan menu berdasarkan kategori Food, Drink, dan Snack, beserta ringkasan item dan catatan pesanan.",
+          "Mendesain tampilan pemilihan meja berdasarkan area, seperti Indoor, Outdoor, dan lantai dua, dengan informasi ketersediaan meja.",
+          "Merancang tampilan daftar laporan transaksi serta struk pembayaran yang memuat rincian item, subtotal, biaya layanan, pajak, total, dan kembalian.",
+        ],
+        technologies: ["Figma"],
+        slides: [
+          {
+            src: "/images/projects/teras-kita/01-login.png",
+            alt: "Rancangan halaman login POS Cafe Teras Kita dengan field username atau email dan password.",
+            caption: "Login pengguna",
+          },
+          {
+            src: "/images/projects/teras-kita/02-dashboard.png",
+            alt: "Dashboard POS Cafe Teras Kita dengan ringkasan pesanan baru, total pesanan, waiting list, daftar pesanan, pembayaran, menu populer, dan stok habis.",
+            caption: "Dashboard operasional",
+          },
+          {
+            src: "/images/projects/teras-kita/03-create-order.png",
+            alt: "Form pembuatan pesanan baru dengan pilihan Dine In atau Takeaway, nama pelanggan, jumlah tamu, dan pemilihan meja.",
+            caption: "Pembuatan pesanan",
+          },
+          {
+            src: "/images/projects/teras-kita/04-menu.png",
+            alt: "Halaman pemilihan menu dengan kategori All Menu, Food, Drink, dan Snack serta ringkasan pesanan di sisi kanan.",
+            caption: "Pemilihan menu dan ringkasan order",
+          },
+          {
+            src: "/images/projects/teras-kita/05-table.png",
+            alt: "Tampilan pemilihan meja dengan area Indoor, Outdoor, lantai dua, dan indikator status meja.",
+            caption: "Pemilihan meja",
+          },
+          {
+            src: "/images/projects/teras-kita/06-report.png",
+            alt: "Tabel laporan transaksi dengan nomor pesanan, waktu order, waktu pembayaran, pelanggan, meja, harga, dan waiter.",
+            caption: "Laporan transaksi",
+          },
+        ],
+        documentation: [
+          {
+            title: "Struk Pembayaran",
+            description:
+              "Contoh rancangan struk untuk merangkum identitas transaksi, item pesanan, subtotal, biaya layanan, pajak, total pembayaran, dan kembalian.",
+            mobile: true,
+            images: [
+              {
+                src: "/images/projects/teras-kita/documentation/07-struk-pembayaran.png",
+                alt: "Rancangan struk POS Cafe Teras Kita yang menampilkan informasi cafe, nomor transaksi, waktu, item, subtotal, biaya layanan, pajak, total, tunai, kembalian, dan ucapan terima kasih.",
+                caption: "Struk pembayaran",
+              },
+            ],
+          },
+        ],
+        design:
+          "https://www.figma.com/design/jOGAdzXpd5P5uVx56dQ6Nv/UI-UX-KELOMPOK-1--POS-?node-id=0-1&t=CUcnu5hlXIGfYkdA-1",
+        note: "Pekerjaan yang dapat diverifikasi dari file ini adalah rancangan UI/UX di Figma. Fitur, data transaksi, dan angka pada layar merupakan isi desain; tidak digunakan sebagai klaim bahwa sistem backend atau transaksi nyata telah berjalan.",
+      },
+    ],
+
+    en: [
+      // ==========================================
+      // 01. SERIN (EN)
+      // ==========================================
+      {
+        slug: "emosi-deteksi",
+        title: "SERIN - Smart Emotion Recognition for Integrated Counseling",
+        category: "Final Project • Web Application • Computer Vision",
+        frameType: "browser",
+        summary:
+          "A web application prototype designed to help counselors observe students' facial emotional expressions during counseling sessions via real-time facial recognition.",
+        overview:
+          "SERIN is a final project web-based counseling support system. It uses the LightExNet V2 model to classify facial expressions into five emotion categories: Happy, Sad, Angry, Fear, and Neutral. Detection results are displayed on a live dashboard and session monitor, saved as logs with key moment markers, and compiled into exportable PDF counseling reports. On test data evaluation reported in the study, the model achieved 80.55% accuracy. SERIN is built as an initial observation aid, not a psychological diagnostic tool or a replacement for counselors.",
+        activities: [
+          "Prepared and processed facial image datasets across five emotion categories.",
+          "Performed image preprocessing, including grayscale conversion, 48×48 pixel resizing, and pixel value normalization.",
+          "Developed and trained the LightExNet V2 CNN model, evaluating it using accuracy, precision, recall, F1-score, and a confusion matrix.",
+          "Integrated Haar Cascade face detection and OpenCV preprocessing with a FastAPI backend for real-time webcam inference.",
+          "Built end-to-end application workflows for student and session management, live monitoring, emotion logging, markers, report history, report details, and PDF export.",
+        ],
+        technologies: [
+          "Python",
+          "React",
+          "Vite",
+          "JavaScript",
+          "FastAPI",
+          "SQLite",
+          "SQLAlchemy",
+          "TensorFlow",
+          "Keras",
+          "OpenCV",
+          "Haar Cascade",
+          "LightExNet V2",
+          "jsPDF",
+        ],
+        slides: [
+          {
+            src: "/images/projects/serin/01-dashboard.png",
+            alt: "SERIN dashboard displaying student summaries, counseling sessions, reports, and emotion distribution.",
+            caption: "Counselor dashboard",
+          },
+          {
+            src: "/images/projects/serin/02-monitoring-realtime.png",
+            alt: "SERIN monitoring view with live webcam feed, emotion prediction, probability scores, and running emotion distribution.",
+            caption: "Real-time emotion monitoring",
+          },
+          {
+            src: "/images/projects/serin/03-laporan-timeline.png",
+            alt: "SERIN session report showing emotion summaries and a time-based emotion scatter timeline.",
+            caption: "Session report and emotion timeline",
+          },
+          {
+            src: "/images/projects/serin/04-detail-laporan.png",
+            alt: "SERIN report detail page showing emotion breakdown, initial system notes, session metadata, and key markers.",
+            caption: "Counseling report details",
+          },
+          {
+            src: "/images/projects/serin/05-riwayat-laporan.png",
+            alt: "SERIN report history page with search, filters, and a list of completed counseling sessions.",
+            caption: "Counseling report history",
+          },
+        ],
+        documentation: [
+          {
+            title: "Model Architecture",
+            description:
+              "Architecture diagram of the LightExNet V2 model used to classify the five emotion categories.",
+            images: [
+              {
+                src: "/images/projects/serin/documentation/02-arsitektur-lightexnet.png",
+                alt: "LightExNet V2 architecture diagram used in the facial emotion recognition model.",
+                caption: "LightExNet V2 architecture",
+              },
+            ],
+          },
+          {
+            title: "Model Training and Evaluation",
+            description:
+              "Training curves and classification evaluation metrics on the test dataset.",
+            images: [
+              {
+                src: "/images/projects/serin/documentation/03-accuracy-loss.png",
+                alt: "Accuracy and loss curves across model training epochs.",
+                caption: "Accuracy and loss curves",
+              },
+              {
+                src: "/images/projects/serin/documentation/04-confusion-matrix.png",
+                alt: "Confusion matrix across the five facial emotion classification categories.",
+                caption: "Confusion matrix",
+              },
+            ],
+          },
+          {
+            title: "Sample PDF Report",
+            description:
+              "Sample exported counseling report summarizing session details and emotion distributions.",
+            images: [
+              {
+                src: "/images/projects/serin/documentation/05-contoh-laporan-pdf.png",
+                alt: "Sample exported PDF counseling report generated by SERIN.",
+                caption: "Exported counseling report",
+              },
+            ],
+          },
+        ],
+        repository: "https://github.com/rizkiikzir/emosi-deteksi",
+        note: "SERIN is a counseling support prototype. Emotion classification outputs must be reviewed within session context and are not intended as a psychological diagnosis.",
+      },
+
+      // ==========================================
+      // 02. SIM-YANTEK (EN)
+      // ==========================================
+      {
+        slug: "sim-yantek",
+        title: "SIM-YANTEK - Technical Service Monitoring Mobile App",
+        category: "Internship Project • Mobile Application",
+        frameType: "mobile",
+        summary:
+          "A mobile application built to streamline field progress reporting and monitoring for technical service (YANTEK) operations at PT PLN (Persero) UP3 Lhokseumawe.",
+        overview:
+          "SIM-YANTEK is a mobile application developed during an internship at PT PLN (Persero) UP3 Lhokseumawe under mentor supervision. The app allows field personnel to submit work progress reports complete with titles, descriptions, photo evidence, dates, and timestamps. Reports can then be tracked by status-such as awaiting verification, under review, completed, or returned. Built with Flutter on mobile and a Node.js, Express, and TypeScript backend API backed by PostgreSQL and Prisma.",
+        activities: [
+          "Defined system requirements and workflows with the mentor, including Context Diagrams, Level 0 and Level 1 DFDs, and ERDs.",
+          "Developed mobile UI screens using Flutter and Dart for login, dashboard, progress submission, progress lists, and account settings.",
+          "Integrated NIP-based user authentication with the backend API using JWT tokens.",
+          "Connected progress report submissions with photo evidence uploads from the mobile client to the backend.",
+          "Implemented progress list views, search, status filters, and verification return flows in the mobile interface.",
+        ],
+        technologies: [
+          "Flutter",
+          "Dart",
+          "Provider",
+          "Node.js",
+          "Express",
+          "TypeScript",
+          "Prisma ORM",
+          "PostgreSQL",
+          "JWT",
+          "bcryptjs",
+          "local_auth",
+          "Flutter Secure Storage",
+          "image_picker",
+        ],
+        slides: [
+          {
+            src: "/images/projects/sim-yantek/01-login.png",
+            alt: "SIM-YANTEK login screen with NIP and password authentication.",
+            caption: "User login",
+          },
+          {
+            src: "/images/projects/sim-yantek/02-dashboard.png",
+            alt: "SIM-YANTEK dashboard showing progress entry shortcuts and task status summaries.",
+            caption: "Work progress dashboard",
+          },
+          {
+            src: "/images/projects/sim-yantek/03-input-progress.png",
+            alt: "Progress submission form with title, photo evidence, date, time, and notes.",
+            caption: "Progress entry form",
+          },
+          {
+            src: "/images/projects/sim-yantek/04-daftar-progress.png",
+            alt: "Work progress list with search and verification status filters.",
+            caption: "Progress list and statuses",
+          },
+          {
+            src: "/images/projects/sim-yantek/05-pengembalian-progress.png",
+            alt: "Progress report return dialog with rejection remarks field.",
+            caption: "Report return workflow",
+          },
+        ],
+        documentation: [
+          {
+            title: "System Design and Data Flows",
+            description:
+              "System analysis and architectural diagrams created as the foundation for SIM-YANTEK.",
+            images: [
+              {
+                src: "/images/projects/sim-yantek/documentation/01-context-diagram.png",
+                alt: "SIM-YANTEK Context Diagram illustrating interactions between field users, admins, and the system.",
+                caption: "Context Diagram",
+              },
+              {
+                src: "/images/projects/sim-yantek/documentation/02-dfd-level-0.png",
+                alt: "SIM-YANTEK Level 0 Data Flow Diagram.",
+                caption: "DFD Level 0",
+              },
+              {
+                src: "/images/projects/sim-yantek/documentation/03-dfd-authentication.png",
+                alt: "Level 1 DFD for authentication and account management.",
+                caption: "DFD Level 1 - Authentication & accounts",
+              },
+              {
+                src: "/images/projects/sim-yantek/documentation/04-dfd-progress.png",
+                alt: "Level 1 DFD for work progress data management.",
+                caption: "DFD Level 1 - Progress management",
+              },
+              {
+                src: "/images/projects/sim-yantek/documentation/05-dfd-verifikasi.png",
+                alt: "Level 1 DFD for progress report verification.",
+                caption: "DFD Level 1 - Verification",
+              },
+              {
+                src: "/images/projects/sim-yantek/documentation/06-erd.png",
+                alt: "Entity Relationship Diagram for the SIM-YANTEK database.",
+                caption: "Entity Relationship Diagram",
+              },
+            ],
+          },
+          {
+            title: "Account Settings",
+            description:
+              "Sample mobile UI screens for account profile management and security settings.",
+            mobile: true,
+            images: [
+              {
+                src: "/images/projects/sim-yantek/documentation/07-account-settings.png",
+                alt: "SIM-YANTEK account screen showing profile editing, security, help, and app info menus.",
+                caption: "Account and settings menu",
+              },
+            ],
+          },
+        ],
+        repository: "https://github.com/rizkiikzir/monitoring-yantek",
+        note: "Developed alongside a mentor during the internship. The repository reflects a functional prototype implementation; certain progress management flows still require further backend integration.",
+      },
+
+      // ==========================================
+      // 03. TERAS KITA (EN)
+      // ==========================================
+      {
+        slug: "teras-kita",
+        title: "Teras Kita - Café POS",
+        category: "UI/UX Design • Point of Sale (POS)",
+        frameType: "tablet",
+        summary:
+          "A UI/UX design concept for a café Point of Sale (POS) system covering order flows, menu and table selection, order tracking, transaction reports, and payment receipts.",
+        overview:
+          "Teras Kita is an interface design project for a café Point of Sale (POS) application. The Figma prototype covers end-to-end cashier workflows-from login and the operational dashboard to creating Dine-In or Takeaway orders, browsing menus across Food, Drink, and Snack categories, assigning tables, viewing transaction reports, and generating payment receipts. This project focuses on user flow architecture and interface design in Figma rather than a live production POS deployment.",
+        activities: [
+          "Designed login and operational dashboard screens displaying new order summaries, total orders, and waiting lists.",
+          "Structured Dine-In and Takeaway order creation flows, including customer name, guest count, and table assignment.",
+          "Designed menu selection interfaces organized by Food, Drink, and Snack categories with a live order summary panel.",
+          "Created area-based table selection layouts (Indoor, Outdoor, and Second Floor) with clear availability indicators.",
+          "Designed transaction report tables and itemized payment receipts detailing subtotals, service charges, taxes, totals, and change.",
+        ],
+        technologies: ["Figma"],
+        slides: [
+          {
+            src: "/images/projects/teras-kita/01-login.png",
+            alt: "Teras Kita Café POS login screen design with username/email and password inputs.",
+            caption: "User login",
+          },
+          {
+            src: "/images/projects/teras-kita/02-dashboard.png",
+            alt: "Teras Kita Café POS dashboard showing new orders, total orders, waiting list, active orders, payments, popular items, and out-of-stock alerts.",
+            caption: "Operational dashboard",
+          },
+          {
+            src: "/images/projects/teras-kita/03-create-order.png",
+            alt: "New order form with Dine-In or Takeaway options, customer name, guest count, and table selection.",
+            caption: "Order creation",
+          },
+          {
+            src: "/images/projects/teras-kita/04-menu.png",
+            alt: "Menu selection screen with All Menu, Food, Drink, and Snack tabs alongside a live order summary panel.",
+            caption: "Menu selection and order summary",
+          },
+          {
+            src: "/images/projects/teras-kita/05-table.png",
+            alt: "Table layout selector featuring Indoor, Outdoor, and second-floor zones with availability indicators.",
+            caption: "Table selection",
+          },
+          {
+            src: "/images/projects/teras-kita/06-report.png",
+            alt: "Transaction report table displaying order numbers, order times, payment timestamps, customers, tables, totals, and waiters.",
+            caption: "Transaction report",
+          },
+        ],
+        documentation: [
+          {
+            title: "Payment Receipt",
+            description:
+              "Receipt layout summarizing transaction IDs, ordered items, subtotals, service fees, taxes, total amount due, and change.",
+            mobile: true,
+            images: [
+              {
+                src: "/images/projects/teras-kita/documentation/07-struk-pembayaran.png",
+                alt: "Teras Kita Café POS receipt mockup showing café details, transaction ID, timestamp, itemized order, subtotal, service fee, tax, total, cash, and change.",
+                caption: "Payment receipt",
+              },
+            ],
+          },
+        ],
+        design:
+          "https://www.figma.com/design/jOGAdzXpd5P5uVx56dQ6Nv/UI-UX-KELOMPOK-1--POS-?node-id=0-1&t=CUcnu5hlXIGfYkdA-1",
+        note: "The verifiable deliverable for this project is the UI/UX prototype in Figma. Displayed metrics, transactions, and figures represent design mockups rather than live backend data.",
+      },
+    ],
+  };
+
+  return projectsByLang[currentLang].map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+
+const ui = {
+  backHref: isID ? "/#proyek" : "/en#projects",
+  backLabel: isID ? "Kembali ke Proyek" : "Back to Projects",
+  backAllLabel: isID ? "Kembali ke seluruh proyek" : "Back to all projects",
+  openImagePrefix: isID ? "Buka gambar penuh:" : "Open full image:",
+  prevLabel: isID ? "Sebelumnya" : "Previous",
+  prevAria: isID ? "Gambar sebelumnya" : "Previous image",
+  nextLabel: isID ? "Berikutnya" : "Next",
+  nextAria: isID ? "Gambar berikutnya" : "Next image",
+  slideAria: isID ? "Tampilkan gambar" : "Show image",
+  aboutHeading: isID ? "Tentang Proyek" : "Project Overview",
+  focusHeading: isID ? "Fokus Pengerjaan" : "Key Contributions",
+  docHeading: isID ? "Dokumentasi Teknis & Artefak" : "Technical Documentation & Artifacts",
+  docDesc: isID
+    ? "Dokumentasi pendukung yang memperlihatkan rancangan sistem, evaluasi teknis, dan hasil pengerjaan proyek."
+    : "Supporting artifacts illustrating system architecture, technical evaluation, and project outputs.",
+  techHeading: isID ? "Teknologi yang Digunakan" : "Technologies Used",
+  noteLabel: isID ? "Catatan" : "Note",
+  repoLabel: isID ? "Lihat Repository GitHub" : "View GitHub Repository",
+  designLabel: isID ? "Lihat Desain Figma" : "View Figma Design",
+};
+---
+
+<BaseLayout
+  lang={lang}
+  title={`${project.title} - Muhammad Rizki`}
+  description={project.summary}
+>
+  <div class="container">
+    <article class="project-detail">
+      <a class="back-link" href={ui.backHref}>
+        <span class="arrow-left" aria-hidden="true">←</span>
+        <span>{ui.backLabel}</span>
+      </a>
+
+      <!-- PROJECT HEADER -->
+      <header class="detail-header">
+        <p class="detail-category mono-label">
+          {project.category}
+        </p>
+
+        <h1>{project.title}</h1>
+
+        <p class="detail-summary">
+          {project.summary}
+        </p>
+      </header>
+
+      <!-- PROJECT IMAGE CAROUSEL -->
+      <section
+        class:list={[
+          "project-carousel",
+          `project-carousel--${project.frameType}`,
+        ]}
+        data-project-carousel
+        aria-label={isID ? `Galeri gambar ${project.title}` : `${project.title} image gallery`}
+      >
+        <div class="carousel-viewport">
+          {project.slides.map((slide, index) => (
+            <figure
+              class="carousel-slide"
+              data-carousel-slide
+              hidden={index !== 0}
+            >
+              <div class:list={["device-frame", `device-frame--${project.frameType}`]}>
+                {project.frameType === "browser" && (
+                  <div class="browser-bar" aria-hidden="true">
+                    <span class="browser-dots">
+                      <i></i>
+                      <i></i>
+                      <i></i>
+                    </span>
+                    <span class="browser-address"></span>
+                  </div>
+                )}
+
+                {project.frameType === "mobile" && (
+                  <div class="mobile-speaker" aria-hidden="true"></div>
+                )}
+
+                {project.frameType === "tablet" && (
+                  <span class="tablet-camera" aria-hidden="true"></span>
+                )}
+
+                <a
+                  href={slide.src}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="carousel-image-link"
+                  aria-label={`${ui.openImagePrefix} ${slide.caption}`}
+                  title={isID ? "Klik untuk melihat ukuran penuh" : "Click to view full size"}
+                >
+                  <img
+                    src={slide.src}
+                    alt={slide.alt}
+                    loading={index === 0 ? "eager" : "lazy"}
+                    decoding="async"
+                  />
+                </a>
+              </div>
+
+              <figcaption>
+                {slide.caption}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+
+        <div class="carousel-controls">
+          <button
+            type="button"
+            class="carousel-button"
+            data-carousel-prev
+            aria-label={ui.prevAria}
+          >
+            <span aria-hidden="true">←</span>
+            <span class="control-label">{ui.prevLabel}</span>
+          </button>
+
+          <div class="carousel-pagination">
+            <span
+              class="carousel-count"
+              data-carousel-count
+              aria-live="polite"
+            >
+              01 / {String(project.slides.length).padStart(2, "0")}
+            </span>
+
+            <div class="carousel-indicators">
+              {project.slides.map((_, index) => (
+                <button
+                  type="button"
+                  class="carousel-indicator"
+                  data-carousel-indicator
+                  data-index={index}
+                  aria-label={`${ui.slideAria} ${index + 1}`}
+                  aria-current={index === 0 ? "true" : "false"}
+                />
+              ))}
+            </div>
+          </div>
+
+          <button
+            type="button"
+            class="carousel-button"
+            data-carousel-next
+            aria-label={ui.nextAria}
+          >
+            <span class="control-label">{ui.nextLabel}</span>
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- PROJECT INFORMATION -->
+      <div class="detail-body">
+        <section class="detail-section">
+          <h2>{ui.aboutHeading}</h2>
+          <p>{project.overview}</p>
+        </section>
+
+        <section class="detail-section">
+          <h2>{ui.focusHeading}</h2>
+
+          <ol class="activity-list">
+            {project.activities.map((activity) => (
+              <li>{activity}</li>
+            ))}
+          </ol>
+        </section>
+
+        <!-- ADDITIONAL DOCUMENTATION -->
+        {project.documentation.length > 0 && (
+          <section class="documentation-section">
+            <header class="documentation-header">
+              <h2>{ui.docHeading}</h2>
+              <p>{ui.docDesc}</p>
+            </header>
+
+            {project.documentation.map((group) => (
+              <div class="documentation-group">
+                <div class="documentation-group-header">
+                  <h3>{group.title}</h3>
+                  <p>{group.description}</p>
+                </div>
+
+                <div
+                  class:list={[
+                    "documentation-grid",
+                    group.mobile && "mobile-documentation-grid",
+                  ]}
+                >
+                  {group.images.map((image) => (
+                    <figure class="documentation-item">
+                      <a
+                        href={image.src}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="documentation-image-link"
+                        aria-label={`${ui.openImagePrefix} ${image.caption}`}
+                      >
+                        <img
+                          src={image.src}
+                          alt={image.alt}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </a>
+
+                      <figcaption>{image.caption}</figcaption>
+                    </figure>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </section>
+        )}
+
+        <!-- TECHNOLOGIES -->
+        {project.technologies.length > 0 && (
+          <section class="detail-section">
+            <h2>{ui.techHeading}</h2>
+
+            <ul class="technology-list">
+              {project.technologies.map((technology) => (
+                <li>{technology}</li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <!-- PROJECT NOTE -->
+        {project.note && (
+          <aside class="project-note">
+            <span class="note-label mono-label">{ui.noteLabel}</span>
+            <p>{project.note}</p>
+          </aside>
+        )}
+
+        <!-- EXTERNAL LINKS -->
+        {(project.repository || project.design) && (
+          <div class="detail-actions">
+            {project.repository && (
+              <a
+                class="external-action-button"
+                href={project.repository}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span>{ui.repoLabel}</span>
+                <span class="arrow-up" aria-hidden="true">↗</span>
+              </a>
+            )}
+
+            {project.design && (
+              <a
+                class="external-action-button"
+                href={project.design}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span>{ui.designLabel}</span>
+                <span class="arrow-up" aria-hidden="true">↗</span>
+              </a>
+            )}
+          </div>
+        )}
+      </div>
+
+      <div class="detail-footer">
+        <a class="back-link back-link--footer" href={ui.backHref}>
+          <span class="arrow-left" aria-hidden="true">←</span>
+          <span>{ui.backAllLabel}</span>
+        </a>
+      </div>
+    </article>
+  </div>
+
+</BaseLayout>
+
+<script>
+  document
+    .querySelectorAll<HTMLElement>("[data-project-carousel]")
+    .forEach((carousel) => {
+      const slides = Array.from(
+        carousel.querySelectorAll<HTMLElement>("[data-carousel-slide]")
+      );
+
+      const previousButton =
+        carousel.querySelector<HTMLButtonElement>("[data-carousel-prev]");
+
+      const nextButton =
+        carousel.querySelector<HTMLButtonElement>("[data-carousel-next]");
+
+      const countElement =
+        carousel.querySelector<HTMLElement>("[data-carousel-count]");
+
+      const indicators = Array.from(
+        carousel.querySelectorAll<HTMLButtonElement>(
+          "[data-carousel-indicator]"
+        )
+      );
+
+      if (slides.length === 0) return;
+
+      let activeIndex = 0;
+
+      const showSlide = (requestedIndex: number) => {
+        activeIndex = (requestedIndex + slides.length) % slides.length;
+
+        slides.forEach((slide, index) => {
+          const isActive = index === activeIndex;
+
+          slide.hidden = !isActive;
+          slide.setAttribute("aria-hidden", String(!isActive));
+        });
+
+        indicators.forEach((indicator, index) => {
+          indicator.setAttribute(
+            "aria-current",
+            String(index === activeIndex)
+          );
+        });
+
+        if (countElement) {
+          countElement.textContent =
+            `${String(activeIndex + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
+        }
+      };
+
+      previousButton?.addEventListener("click", () => {
+        showSlide(activeIndex - 1);
+      });
+
+      nextButton?.addEventListener("click", () => {
+        showSlide(activeIndex + 1);
+      });
+
+      indicators.forEach((indicator, index) => {
+        indicator.addEventListener("click", () => {
+          showSlide(index);
+        });
+      });
+
+      carousel.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          showSlide(activeIndex - 1);
+        }
+
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          showSlide(activeIndex + 1);
+        }
+      });
+
+      showSlide(0);
+    });
+</script>
+
+<style>
+  /* =================================
+     BASE PROJECT DETAIL
+  ================================= */
+
+  .project-detail {
+    padding-top: var(--space-7);
+    padding-bottom: var(--space-8);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: var(--space-7);
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color 180ms ease;
+  }
+
+  .back-link .arrow-left {
+    display: inline-block;
+    transition: transform 180ms ease;
+  }
+
+  .back-link:hover {
+    color: var(--color-accent);
+  }
+
+  .back-link:hover .arrow-left {
+    transform: translateX(-3px);
+  }
+
+  .back-link--footer {
+    margin-bottom: 0;
+  }
+
+  .detail-header {
+    max-width: 52rem;
+    margin-bottom: var(--space-7);
+  }
+
+  .detail-category {
+    margin-bottom: var(--space-3);
+    color: var(--color-accent);
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+
+  .detail-header h1 {
+    margin-bottom: var(--space-4);
+    font-size: 2.625rem;
+    line-height: 1.15;
+  }
+
+  .detail-summary {
+    max-width: 44rem;
+    margin-bottom: 0;
+    color: var(--color-text-secondary);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+  }
+
+  /* =================================
+     PROJECT CAROUSEL & DEVICE FRAMES
+  ================================= */
+
+  .project-carousel {
+    width: 100%;
+    margin-top: var(--space-7);
+  }
+
+  .carousel-viewport {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: clamp(1.25rem, 3vw, 2.25rem);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background-color: color-mix(in srgb, var(--color-surface) 93%, #000);
+  }
+
+  .carousel-slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+  }
+
+  .carousel-slide[hidden] {
+    display: none;
+  }
+
+  /* Bingkai perangkat selalu membungkus ukuran asli gambar tanpa crop */
+  .device-frame {
+    display: inline-flex;
+    flex-direction: column;
+    max-width: 100%;
+  }
+
+  .carousel-image-link {
+    display: block;
+    overflow: hidden;
+    background: #ffffff;
+  }
+
+  .carousel-slide img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: min(64svh, 620px);
+    object-fit: contain;
+  }
+
+  /* 1. Browser / Desktop Frame */
+  .device-frame--browser {
+    border: 1.5px solid #262b29;
+    border-radius: 8px;
+    background: #ffffff;
+    overflow: hidden;
+    /* Browser */
+    box-shadow: 0 8px 20px -12px rgba(0, 0, 0, 0.12);
+  }
+
+  .browser-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    width: 100%;
+    height: 24px;
+    padding-inline: 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+    background-color: #f3f2ee;
+  }
+
+  .browser-dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .browser-dots i {
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #c5c3bc;
+  }
+
+  .browser-address {
+    flex: 1;
+    max-width: 160px;
+    height: 8px;
+    border-radius: 999px;
+    background-color: #e4e2dc;
+  }
+
+  /* 2. Smartphone Frame */
+  .device-frame--mobile {
+    align-items: center;
+    padding: 9px;
+    border-radius: 26px;
+    background-color: #1f2422;
+    /* Mobile */
+    box-shadow: 0 10px 22px -12px rgba(0, 0, 0, 0.14);
+  }
+
+  .mobile-speaker {
+    width: 36px;
+    height: 3px;
+    margin: 2px auto 8px;
+    border-radius: 999px;
+    background-color: #3d4441;
+  }
+
+  .device-frame--mobile .carousel-image-link {
+    border-radius: 17px;
+  }
+
+  .device-frame--mobile img {
+    max-height: min(66svh, 620px);
+  }
+
+  /* 3. Tablet Landscape Frame */
+  .device-frame--tablet {
+    flex-direction: row;
+    align-items: center;
+    padding: 11px 16px 11px 14px;
+    border-radius: 18px;
+    background-color: #1f2422;
+    /* Tablet */
+    box-shadow: 0 10px 22px -12px rgba(0, 0, 0, 0.12);
+  }
+
+  .tablet-camera {
+    flex-shrink: 0;
+    width: 4px;
+    height: 4px;
+    margin-right: 10px;
+    border-radius: 50%;
+    background-color: #464e4a;
+  }
+
+  .device-frame--tablet .carousel-image-link {
+    border-radius: 8px;
+  }
+
+  .device-frame--tablet img {
+    max-height: min(62svh, 580px);
+  }
+
+  .carousel-slide figcaption {
+    margin-top: var(--space-4);
+    color: var(--color-text-secondary);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .carousel-controls {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: var(--space-3);
+    padding-top: var(--space-4);
+  }
+
+  .carousel-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    width: fit-content;
+    padding: 0.5rem 0.875rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--color-text-primary);
+    font-family: inherit;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+      background-color 180ms ease,
+      color 180ms ease,
+      border-color 180ms ease;
+  }
+
+  .carousel-button:last-child {
+    justify-self: end;
+  }
+
+  .carousel-button:hover {
+    border-color: var(--color-accent);
+    background: color-mix(in srgb, var(--color-accent) 8%, transparent);
+    color: var(--color-accent);
+  }
+
+  .carousel-pagination {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .carousel-count {
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .carousel-indicators {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .carousel-indicator {
+    width: 7px;
+    height: 7px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--color-border);
+    cursor: pointer;
+    transition: background-color 180ms ease, transform 180ms ease;
+  }
+
+  .carousel-indicator[aria-current="true"] {
+    background: var(--color-accent);
+    transform: scale(1.15);
+  }
+
+  /* =================================
+     PROJECT INFORMATION
+  ================================= */
+
+  .detail-body {
+  max-width: 48rem;
+  margin: var(--space-8) auto 0;
+}
+
+  .detail-section {
+  margin-bottom: var(--space-7);
+}
+
+  .detail-section h2 {
+    margin-bottom: var(--space-4);
+    font-size: 1.5rem;
+  }
+
+  .detail-section > p {
+    color: var(--color-text-primary);
+    line-height: 1.8;
+  }
+
+  .activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding-left: 1.4rem;
+    color: var(--color-text-secondary);
+    line-height: 1.75;
+  }
+
+  .activity-list li {
+    padding-left: var(--space-2);
+  }
+
+  .activity-list li::marker {
+    color: var(--color-accent);
+  }
+
+  /* =================================
+     DOCUMENTATION
+  ================================= */
+
+  .documentation-section {
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+
+  .documentation-header {
+  max-width: 42rem;
+  margin-bottom: var(--space-6);
+}
+
+  .documentation-header h2 {
+    margin-bottom: var(--space-3);
+    font-size: 1.625rem;
+  }
+
+  .documentation-header > p,
+  .documentation-group-header > p {
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+  }
+
+  .documentation-group {
+    margin-top: var(--space-7);
+  }
+
+  .documentation-group-header {
+    margin-bottom: var(--space-4);
+  }
+
+  .documentation-group-header h3 {
+    margin-bottom: 0.35rem;
+    font-size: 1.125rem;
+  }
+
+  .documentation-group-header p {
+    margin-bottom: 0;
+    font-size: 0.875rem;
+  }
+
+  .documentation-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: var(--space-5);
+  }
+
+  .documentation-item {
+    min-width: 0;
+    margin: 0;
+  }
+
+  .documentation-image-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 180px;
+    padding: 0.75rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background-color: color-mix(in srgb, var(--color-surface) 93%, #000);
+    transition: border-color 180ms ease;
+  }
+
+  .documentation-image-link:hover {
+    border-color: var(--color-accent);
+  }
+
+  /* Gambar dokumentasi juga mempertahankan proporsi asli 100% tanpa crop */
+  .documentation-image-link img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 540px;
+    margin-inline: auto;
+    border-radius: 4px;
+    object-fit: contain;
+  }
+
+  .documentation-item figcaption {
+    margin-top: 0.6rem;
+    color: var(--color-text-secondary);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
+
+  .mobile-documentation-grid {
+  grid-template-columns: minmax(0, 280px);
+  justify-content: center;
+}
+
+  /* =================================
+     TECHNOLOGIES
+  ================================= */
+
+  .technology-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .technology-list li {
+    padding: 0.3rem 0.65rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background-color: color-mix(in srgb, var(--color-surface) 92%, #000);
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+  }
+
+  /* =================================
+     PROJECT NOTE & EXTERNAL ACTIONS
+  ================================= */
+
+  .project-note {
+    margin-top: var(--space-7);
+    padding: var(--space-4) var(--space-5);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-accent);
+    border-radius: 0 6px 6px 0;
+    background-color: color-mix(in srgb, var(--color-accent) 5%, transparent);
+  }
+
+  .note-label {
+    display: block;
+    margin-bottom: 0.35rem;
+    color: var(--color-accent);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .project-note p {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+
+  .detail-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-top: var(--space-7);
+  }
+
+  .external-action-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.1rem;
+    border: 1px solid var(--color-accent);
+    border-radius: 4px;
+    background-color: color-mix(in srgb, var(--color-accent) 8%, transparent);
+    color: var(--color-accent);
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition:
+      background-color 180ms ease,
+      color 180ms ease;
+  }
+
+  .external-action-button:hover {
+    background-color: var(--color-accent);
+    color: var(--color-surface);
+  }
+
+  .external-action-button .arrow-up {
+    display: inline-block;
+    transition: transform 180ms ease;
+  }
+
+  .external-action-button:hover .arrow-up {
+    transform: translate(2px, -2px);
+  }
+
+  .detail-footer {
+  max-width: 48rem;
+  margin: var(--space-8) auto 0;
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+  /* =================================
+     TABLET
+  ================================= */
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    }
+
+  /* =================================
+     MOBILE
+  ================================= */
+
+  @media (max-width: 767px) {
+    .project-detail {
+      padding-top: var(--space-6);
+    }
+
+    .back-link {
+      margin-bottom: var(--space-5);
+    }
+
+    .detail-header h1 {
+      font-size: 2rem;
+    }
+
+    .detail-summary {
+      font-size: 1rem;
+    }
+
+    .detail-body {
+      margin-top: var(--space-7);
+    }
+
+    .detail-section h2 {
+      font-size: 1.25rem;
+    }
+
+    .activity-list {
+      font-size: 0.9375rem;
+    }
+
+    .carousel-viewport {
+      padding: 0.85rem;
+    }
+
+    .browser-bar {
+      height: 19px;
+    }
+
+    .device-frame--mobile {
+      padding: 6px;
+      border-radius: 20px;
+    }
+
+    .device-frame--mobile .carousel-image-link {
+      border-radius: 14px;
+    }
+
+    .device-frame--tablet {
+      padding: 7px 10px 7px 9px;
+      border-radius: 12px;
+    }
+
+    .tablet-camera {
+      width: 3px;
+      height: 3px;
+      margin-right: 6px;
+    }
+
+    .carousel-slide img {
+      max-height: 64svh;
+    }
+
+    .carousel-controls {
+      gap: var(--space-2);
+    }
+
+    .carousel-button {
+      padding: 0.45rem 0.65rem;
+      font-size: 0.75rem;
+    }
+
+    .control-label {
+      display: none;
+    }
+
+    .documentation-header h2 {
+      font-size: 1.375rem;
+    }
+
+    .documentation-grid,
+    .mobile-documentation-grid {
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+  max-width: 380px;
+  margin-inline: auto;
+}
+
+    .documentation-image-link img {
+      max-height: 64svh;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .back-link .arrow-left,
+    .carousel-button,
+    .carousel-indicator,
+    .external-action-button .arrow-up {
+      transition: none;
+    }
+  }
+</style>

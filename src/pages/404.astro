@@ -1,0 +1,134 @@
+
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  lang="id"
+  title="Halaman Tidak Ditemukan | Muhammad Rizki"
+  description="Halaman yang Anda cari tidak ditemukan. Kunjungi kembali portofolio Muhammad Rizki."
+>
+  <div class="container">
+    <section class="not-found" aria-labelledby="not-found-title">
+      <span class="error-code mono-label">ERROR / 404</span>
+
+      <h1 id="not-found-title">Halaman Tidak Ditemukan.</h1>
+
+      <p lang="id">
+        Maaf, halaman yang Anda cari mungkin sudah dipindahkan,
+        dihapus, atau alamatnya tidak tersedia.
+      </p>
+
+      <p class="english-message" lang="en">
+        Sorry, the page you are looking for may have been moved,
+        deleted, or is no longer available.
+      </p>
+
+      <div class="not-found-actions">
+        <a class="back-button" href="/">
+          Kembali ke Beranda
+        </a>
+
+        <a class="back-button back-button--secondary" href="/en">
+          English Homepage
+        </a>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .not-found {
+    display: flex;
+    min-height: 65vh;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding-block: var(--space-10);
+  }
+
+  .error-code {
+    margin-bottom: var(--space-5);
+    color: var(--color-accent);
+  }
+
+  .not-found h1 {
+    max-width: 650px;
+    margin-bottom: var(--space-4);
+    font-size: 2.75rem;
+  }
+
+  .not-found p {
+    max-width: 38rem;
+    margin-bottom: var(--space-4);
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+  }
+
+  .not-found .english-message {
+    margin-bottom: var(--space-6);
+  }
+
+  .not-found-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .back-button {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.25rem;
+    border: 1px solid var(--color-accent);
+    border-radius: 2px;
+    background: var(--color-accent);
+    color: var(--color-surface);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    transition:
+      background-color var(--duration-normal) var(--ease-standard),
+      color var(--duration-normal) var(--ease-standard);
+  }
+
+  .back-button:hover {
+    background: color-mix(
+      in srgb,
+      var(--color-accent) 85%,
+      var(--color-text-primary)
+    );
+    color: var(--color-surface);
+  }
+
+  .back-button--secondary {
+    background: transparent;
+    color: var(--color-accent);
+  }
+
+  .back-button--secondary:hover {
+    background: var(--color-accent-soft);
+    color: var(--color-text-primary);
+  }
+
+  .back-button:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+  }
+
+  @media (max-width: 767px) {
+    .not-found {
+      min-height: 60vh;
+    }
+
+    .not-found h1 {
+      font-size: 2.125rem;
+    }
+
+    .not-found-actions {
+      width: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

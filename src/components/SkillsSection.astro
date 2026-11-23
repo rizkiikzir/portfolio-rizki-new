@@ -1,0 +1,360 @@
+---
+interface Props {
+  lang?: "id" | "en";
+}
+
+const { lang = "id" } = Astro.props;
+const isID = lang === "id";
+
+const content = {
+  label: isID ? "KEAHLIAN" : "SKILLS",
+  title: isID ? "Teknologi & Keterampilan" : "Technologies & Skills",
+  introduction: isID
+    ? "Bahasa pemrograman, framework, dan perangkat lunak yang saya gunakan dalam pengembangan sistem, pengolahan data spasial, hingga dukungan teknis."
+    : "Programming languages, frameworks, and tools I use across system development, spatial data processing, and technical support.",
+  groups: isID
+    ? [
+        {
+          title: "Pemrograman & Pengembangan Web",
+          description:
+            "Bahasa pemrograman dan framework untuk membangun antarmuka web, aplikasi mobile, serta layanan backend.",
+          items: [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "TypeScript",
+            "Python",
+            "SQL",
+            "Dart",
+            "React",
+            "Vite",
+            "Astro",
+            "Flutter",
+            "FastAPI",
+            "Node.js",
+            "Express.js",
+          ],
+        },
+        {
+          title: "AI & Computer Vision",
+          description:
+            "Pustaka dan arsitektur model untuk pengolahan citra digital serta klasifikasi ekspresi wajah.",
+          items: [
+            "TensorFlow",
+            "Keras",
+            "OpenCV",
+            "CNN",
+            "Haar Cascade",
+            "LightExNet",
+            "Facial Emotion Recognition",
+          ],
+        },
+        {
+          title: "Database & API",
+          description:
+            "Perancangan skema basis data relasional, ORM, dan integrasi pertukaran data antar layanan.",
+          items: [
+            "PostgreSQL",
+            "MySQL",
+            "SQLite",
+            "Prisma ORM",
+            "REST API",
+            "JSON",
+          ],
+        },
+        {
+          title: "GIS & Sistem Informasi",
+          description:
+            "Perangkat pemetaan spasial dan sistem operasional untuk validasi data jaringan listrik.",
+          items: [
+            "ArcGIS",
+            "Google Earth",
+            "SIUJANG",
+            "AMS PLN",
+          ],
+        },
+        {
+          title: "IT Support & Jaringan",
+          description:
+            "Diagnosa perangkat keras, perawatan berkala, instalasi sistem operasi, dan konfigurasi jaringan dasar.",
+          items: [
+            "Hardware Troubleshooting",
+            "Software Troubleshooting",
+            "Computer Maintenance",
+            "Windows Installation",
+            "Basic Computer Networking",
+          ],
+        },
+        {
+          title: "Design & Development Tools",
+          description:
+            "Lingkungan pengembangan aplikasi, version control, serta perancangan prototipe antarmuka.",
+          items: [
+            "Figma",
+            "Canva",
+            "GitHub",
+            "Visual Studio Code",
+            "Android Studio",
+            "Laragon",
+            "XAMPP",
+          ],
+        },
+        {
+          title: "Office & Productivity Tools",
+          description:
+            "Pengolahan dokumen laporan, rekapitulasi spreadsheet, diagram alur sistem, dan materi presentasi.",
+          items: [
+            "Microsoft Word",
+            "Microsoft Excel",
+            "Microsoft PowerPoint",
+            "Google Docs",
+            "Google Sheets",
+            "Google Slides",
+            "Google Drive",
+            "Microsoft Visio",
+          ],
+        },
+      ]
+    : [
+        {
+          title: "Programming & Web Development",
+          description:
+            "Languages and frameworks for building web interfaces, mobile applications, and backend services.",
+          items: [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "TypeScript",
+            "Python",
+            "SQL",
+            "Dart",
+            "React",
+            "Vite",
+            "Astro",
+            "Flutter",
+            "FastAPI",
+            "Node.js",
+            "Express.js",
+          ],
+        },
+        {
+          title: "AI & Computer Vision",
+          description:
+            "Libraries and model architectures for digital image processing and facial expression classification.",
+          items: [
+            "TensorFlow",
+            "Keras",
+            "OpenCV",
+            "CNN",
+            "Haar Cascade",
+            "LightExNet",
+            "Facial Emotion Recognition",
+          ],
+        },
+        {
+          title: "Database & API",
+          description:
+            "Relational database schema design, ORM integration, and service-to-service data exchange.",
+          items: [
+            "PostgreSQL",
+            "MySQL",
+            "SQLite",
+            "Prisma ORM",
+            "REST API",
+            "JSON",
+          ],
+        },
+        {
+          title: "GIS & Information Systems",
+          description:
+            "Spatial mapping software and operational systems for electricity network data validation.",
+          items: [
+            "ArcGIS",
+            "Google Earth",
+            "SIUJANG",
+            "AMS PLN",
+          ],
+        },
+        {
+          title: "IT Support & Networking",
+          description:
+            "Hardware diagnostics, routine maintenance, OS installation, and foundational network setup.",
+          items: [
+            "Hardware Troubleshooting",
+            "Software Troubleshooting",
+            "Computer Maintenance",
+            "Windows Installation",
+            "Basic Computer Networking",
+          ],
+        },
+        {
+          title: "Design & Development Tools",
+          description:
+            "Development environments, version control workflows, and UI prototyping tools.",
+          items: [
+            "Figma",
+            "Canva",
+            "GitHub",
+            "Visual Studio Code",
+            "Android Studio",
+            "Laragon",
+            "XAMPP",
+          ],
+        },
+        {
+          title: "Office & Productivity Tools",
+          description:
+            "Documentation, spreadsheet data recapitulation, system flow diagramming, and presentations.",
+          items: [
+            "Microsoft Word",
+            "Microsoft Excel",
+            "Microsoft PowerPoint",
+            "Google Docs",
+            "Google Sheets",
+            "Google Slides",
+            "Google Drive",
+            "Microsoft Visio",
+          ],
+        },
+      ],
+};
+---
+
+<section
+  class="section skills-section"
+  id={isID ? "keahlian" : "skills"}
+>
+  <div class="container">
+    <header class="section-header">
+      <span class="section-number">{content.label}</span>
+      <h2 class="section-title">{content.title}</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+    </header>
+
+    <p class="skills-introduction" data-reveal>
+      {content.introduction}
+    </p>
+
+    <div class="skills-grid">
+      {content.groups.map((group) => (
+        <article class="skill-group">
+          <h3>{group.title}</h3>
+          <p class="skill-description">{group.description}</p>
+
+          <ul class="skill-tags" aria-label={group.title}>
+            {group.items.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .skills-introduction {
+  max-width: 42rem;
+  margin-bottom: var(--space-6);
+  color: var(--color-text-secondary);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--grid-gap-desktop);
+  }
+
+ .skill-group {
+  min-width: 0;
+  padding-block: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+  /* Jika jumlah grup ganjil, item terakhir melebar penuh agar tidak menyisakan ruang kosong */
+  .skill-group:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  .skill-group h3 {
+    margin-bottom: 0.4rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .skill-description {
+    max-width: 44rem;
+    margin-bottom: var(--space-4);
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.65;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .skill-tags li {
+    padding: 0.25rem 0.625rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background-color: color-mix(in srgb, var(--color-surface) 92%, #000);
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    line-height: 1.5;
+    transition:
+      border-color 180ms ease,
+      color 180ms ease;
+  }
+
+  @media (hover: hover) {
+    .skill-tags li:hover {
+      border-color: var(--color-accent);
+      color: var(--color-text-primary);
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .skills-grid {
+      column-gap: var(--grid-gap-tablet);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .skills-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .skills-introduction {
+      font-size: 1rem;
+    }
+
+    .skill-group {
+      padding-block: var(--space-5);
+    }
+
+    .skill-group h3 {
+      font-size: 1.125rem;
+    }
+
+    .skill-tags li {
+      font-size: 0.75rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .skill-tags li {
+      transition: none;
+    }
+  }
+</style>

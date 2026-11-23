@@ -1,0 +1,273 @@
+---
+interface Props {
+  lang?: "id" | "en";
+}
+
+const { lang = "id" } = Astro.props;
+const isID = lang === "id";
+
+const content = {
+  label: isID ? "PENDIDIKAN" : "EDUCATION",
+  title: isID ? "Riwayat Pendidikan" : "Education",
+  entries: isID
+    ? [
+        {
+          period: "2022 - 2026",
+          location: "Kota Lhokseumawe, Aceh",
+          degree: "Sarjana Terapan Teknik Informatika",
+          institution: "Politeknik Negeri Lhokseumawe",
+          logo: "/images/education/politeknik-negeri-lhokseumawe.png",
+          initials: "PNL",
+          achievement: "IPK 3,58 / 4,00",
+        },
+        {
+          period: "2019 - 2022",
+          location: "Kabupaten Aceh Utara, Aceh",
+          degree: "Teknik Komputer dan Jaringan (TKJ)",
+          institution: "SMK Negeri 1 Tanah Jambo Aye",
+          logo: "/images/education/smkn-1-tanah-jambo-aye.png",
+          initials: "SMK",
+          achievement: "Nilai Akhir 91,35",
+        },
+      ]
+    : [
+        {
+          period: "2022 - 2026",
+          location: "Lhokseumawe, Aceh",
+          degree: "Applied Bachelor of Informatics Engineering",
+          institution: "Politeknik Negeri Lhokseumawe",
+          logo: "/images/education/politeknik-negeri-lhokseumawe.png",
+          initials: "PNL",
+          achievement: "GPA 3.58 / 4.00",
+        },
+        {
+          period: "2019 - 2022",
+          location: "North Aceh, Aceh",
+          degree: "Computer and Network Engineering",
+          institution: "SMK Negeri 1 Tanah Jambo Aye",
+          logo: "/images/education/smkn-1-tanah-jambo-aye.png",
+          initials: "SMK",
+          achievement: "Final Grade 91.35",
+        },
+      ],
+};
+---
+
+<section
+  class="section education-section"
+  id={isID ? "pendidikan" : "education"}
+>
+  <div class="container">
+    <header class="section-header">
+      <span class="section-number">{content.label}</span>
+      <h2 class="section-title">{content.title}</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+    </header>
+
+    <div class="education-list">
+      {content.entries.map((entry) => (
+        <article class="education-item">
+          <div class="education-meta">
+            <span class="education-period">{entry.period}</span>
+            <span class="education-location">{entry.location}</span>
+          </div>
+
+          <div class="education-content">
+            <div class="education-logo" aria-label={`Logo ${entry.institution}`}>
+              <img
+                src={entry.logo}
+                alt={`Logo ${entry.institution}`}
+                loading="lazy"
+                decoding="async"
+                data-institution-logo
+              />
+              <span class="education-logo-fallback" aria-hidden="true">
+                {entry.initials}
+              </span>
+            </div>
+
+            <div class="education-main">
+              <h3>{entry.degree}</h3>
+              <p class="education-institution">{entry.institution}</p>
+              <span class="education-badge">{entry.achievement}</span>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  document
+    .querySelectorAll<HTMLImageElement>("[data-institution-logo]")
+    .forEach((logo) => {
+      const markLoaded = () => {
+        if (logo.naturalWidth > 0) {
+          logo.classList.add("is-loaded");
+        } else {
+          logo.hidden = true;
+        }
+      };
+
+      if (logo.complete) {
+        markLoaded();
+      } else {
+        logo.addEventListener("load", markLoaded, { once: true });
+        logo.addEventListener(
+          "error",
+          () => {
+            logo.hidden = true;
+          },
+          { once: true }
+        );
+      }
+    });
+</script>
+
+<style>
+  .education-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .education-item {
+    display: grid;
+    grid-template-columns: minmax(0, 3.5fr) minmax(0, 7.5fr);
+    align-items: start;
+    gap: var(--grid-gap-desktop);
+    padding-block: var(--space-7);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .education-item:first-child {
+    padding-top: 0;
+  }
+
+  .education-item:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .education-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .education-period {
+    color: var(--color-text-primary);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  .education-location {
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .education-content {
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr);
+    align-items: start;
+    gap: var(--space-4);
+    min-width: 0;
+  }
+
+  .education-logo {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    padding: 7px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: #ffffff;
+  }
+
+  .education-logo img {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .education-logo img.is-loaded + .education-logo-fallback {
+    display: none;
+  }
+
+  .education-logo-fallback {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  .education-main {
+    min-width: 0;
+  }
+
+  .education-main h3 {
+    margin-bottom: 0.3rem;
+    font-size: 1.25rem;
+    line-height: 1.35;
+  }
+
+  .education-institution {
+    margin-bottom: 0.75rem;
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .education-badge {
+    display: inline-block;
+    padding: 0.25rem 0.625rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background-color: color-mix(in srgb, var(--color-surface) 92%, #000);
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+  }
+
+  @media (max-width: 1023px) {
+  .education-item {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+    padding-block: var(--space-6);
+  }
+}
+
+  @media (max-width: 767px) {
+    .education-item {
+      padding-block: var(--space-6);
+    }
+
+    .education-content {
+      grid-template-columns: 54px minmax(0, 1fr);
+      gap: var(--space-3);
+    }
+
+    .education-logo {
+      width: 54px;
+      height: 54px;
+      padding: 6px;
+    }
+
+    .education-main h3 {
+      font-size: 1.125rem;
+    }
+  }
+</style>

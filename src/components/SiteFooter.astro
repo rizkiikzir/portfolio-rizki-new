@@ -1,0 +1,206 @@
+---
+import { Network } from "@lucide/astro";
+
+interface Props {
+  lang?: "id" | "en";
+}
+
+const { lang = "id" } = Astro.props;
+const isID = lang === "id";
+const currentYear = new Date().getFullYear();
+
+const content = {
+  brand: "MUHAMMAD RIZKI",
+  description: isID
+    ? "Sarjana Terapan Teknik Informatika - Pengembangan Web, IT Support & GIS."
+    : "Applied Bachelor of Informatics Engineering - Web Development, IT Support & GIS.",
+  location: "Lhokseumawe, Aceh, Indonesia",
+  copyright: isID
+    ? "Seluruh hak cipta dilindungi."
+    : "All rights reserved.",
+  backToTop: isID ? "Kembali ke atas" : "Back to top",
+};
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <a class="brand-link" href={isID ? "/" : "/en/"}>
+          <Network
+            class="brand-icon"
+            size={18}
+            stroke-width={1.6}
+            aria-hidden="true"
+          />
+          <span>{content.brand}</span>
+        </a>
+        <p>{content.description}</p>
+      </div>
+
+      <div class="footer-actions">
+        <div
+  class="footer-socials"
+  aria-label={isID ? "Tautan media sosial" : "Social links"}
+>
+          <a
+            href="https://github.com/rizkiikzir"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub ↗
+          </a>
+          <a
+            href="https://www.linkedin.com/in/muhammadrizki4310/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn ↗
+          </a>
+        </div>
+
+        <a class="footer-back-to-top" href="#main-content">
+          <span>{content.backToTop}</span>
+          <span class="arrow-up" aria-hidden="true">↑</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>
+        © {currentYear} Muhammad Rizki. {content.copyright}
+      </p>
+      <span class="footer-location mono-label">
+        {content.location}
+      </span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-block: var(--space-8) var(--space-6);
+    border-top: 1px solid var(--color-border);
+    background-color: color-mix(in srgb, var(--color-surface) 96%, #000);
+  }
+
+  .footer-main {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-6);
+    padding-bottom: var(--space-7);
+  }
+
+  .brand-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: var(--color-text-primary);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  .brand-icon {
+    color: var(--color-accent);
+    flex-shrink: 0;
+  }
+
+  .footer-brand p {
+    max-width: 28rem;
+    margin-top: var(--space-3);
+    margin-bottom: 0;
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .footer-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--space-4);
+  }
+
+  .footer-socials {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+  }
+
+  .footer-socials a {
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+    transition: color 180ms ease;
+  }
+
+  .footer-socials a:hover {
+    color: var(--color-accent);
+  }
+
+  .footer-back-to-top {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--color-accent);
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color 180ms ease;
+  }
+
+  .footer-back-to-top .arrow-up {
+    display: inline-block;
+    transition: transform 180ms ease;
+  }
+
+  .footer-back-to-top:hover {
+    color: var(--color-text-primary);
+  }
+
+  .footer-back-to-top:hover .arrow-up {
+    transform: translateY(-2px);
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .footer-bottom p {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: 0.78rem;
+  }
+
+  .footer-location {
+    color: var(--color-text-secondary);
+    font-size: 0.72rem;
+  }
+
+  @media (max-width: 767px) {
+    .footer-main {
+      flex-direction: column;
+    }
+
+    .footer-actions {
+      align-items: flex-start;
+    }
+
+    .footer-bottom {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .footer-back-to-top .arrow-up {
+      transition: none;
+    }
+  }
+</style>

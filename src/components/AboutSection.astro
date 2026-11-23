@@ -1,0 +1,155 @@
+---
+interface Props {
+  lang?: "id" | "en";
+}
+
+const { lang = "id" } = Astro.props;
+const isID = lang === "id";
+
+const content = {
+  label: isID ? "TENTANG" : "ABOUT",
+  title: isID ? "Tentang Saya" : "About Me",
+  paragraph1: isID
+    ? "Saya lulusan Sarjana Terapan Teknik Informatika dari Politeknik Negeri Lhokseumawe dengan fokus pada teknologi informasi, jaringan komputer, dan pengembangan sistem."
+    : "I am an Applied Bachelor of Informatics Engineering graduate from Politeknik Negeri Lhokseumawe, focusing on information technology, computer networks, and system development.",
+  paragraph2: isID
+    ? "Di luar perkuliahan, saya memiliki pengalaman lapangan selama 6 bulan magang di divisi Jaringan dan Konstruksi PT PLN (Persero) UP3 Lhokseumawe mulai dari mengolah data mentah GIS menggunakan ArcMap dan Excel, memperbarui data aset di SIUJANG, hingga rekapitulasi data vendor. Sebelumnya saya juga sempat magang sebagai teknisi komputer di Difa Computer untuk diagnosa dan perbaikan perangkat keras."
+    : "Outside of coursework, I gained 6 months of hands-on field experience interning in the Network and Construction division at PT PLN (Persero) UP3 Lhokseumawe processing raw GIS data using ArcMap and Excel, updating asset records in SIUJANG, and recapitulating vendor data. Prior to that, I interned as a computer technician at Difa Computer handling hardware diagnostics and repairs.",
+  facts: isID
+    ? [
+        { label: "Pendidikan", value: "Sarjana Terapan Teknik Informatika" },
+        { label: "Institusi", value: "Politeknik Negeri Lhokseumawe" },
+        { label: "IPK", value: "3.58 / 4.00" },
+        { label: "Tahun Lulus", value: "2026" },
+      ]
+    : [
+        {
+          label: "Education",
+          value: "Applied Bachelor of Informatics Engineering",
+        },
+        { label: "Institution", value: "Politeknik Negeri Lhokseumawe" },
+        { label: "GPA", value: "3.58 / 4.00" },
+        { label: "Graduation", value: "2026" },
+      ],
+};
+---
+
+<section class="section about-section" id={isID ? "tentang" : "about"}>
+  <div class="container">
+    <div class="about-grid">
+      <header class="about-heading">
+        <span class="section-number">{content.label}</span>
+        <h2 class="section-title">{content.title}</h2>
+        <div class="section-divider" aria-hidden="true"></div>
+      </header>
+
+      <div class="about-content">
+  <div class="about-description" data-reveal>
+    <p>{content.paragraph1}</p>
+    <p>{content.paragraph2}</p>
+  </div>
+
+        <dl class="about-facts">
+          {content.facts.map((fact) => (
+            <div class="fact-item">
+              <dt>{fact.label}</dt>
+              <dd>{fact.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: start;
+    gap: var(--grid-gap-desktop);
+  }
+
+  .about-heading {
+    position: sticky;
+    top: 96px;
+    max-width: 20rem;
+  }
+
+  .about-heading .section-title {
+    margin-bottom: var(--space-4);
+  }
+
+
+
+  .about-content {
+    max-width: 45rem;
+  }
+
+  .about-description p {
+    margin-bottom: var(--space-5);
+    color: var(--color-text-primary);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+
+  .about-description p:first-child {
+    color: var(--color-text-primary);
+  }
+
+  .about-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 var(--space-5);
+  margin: var(--space-6) 0 0;
+  border-top: 1px solid var(--color-border);
+}
+
+  .fact-item {
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .fact-item dt {
+    margin-bottom: var(--space-2);
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.03em;
+  }
+
+  .fact-item dd {
+    margin: 0;
+    color: var(--color-text-primary);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 1023px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+
+    .about-heading {
+      position: static;
+      max-width: none;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .about-description p {
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .about-facts {
+      gap: 0 var(--space-4);
+    }
+
+    .fact-item dd {
+      font-size: 0.875rem;
+    }
+  }
+</style>

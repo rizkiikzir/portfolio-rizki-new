@@ -1,0 +1,647 @@
+---
+interface Props {
+  lang?: "id" | "en";
+}
+
+const { lang = "id" } = Astro.props;
+const isID = lang === "id";
+
+type FrameType = "browser" | "mobile" | "tablet";
+
+const content = {
+  label: isID ? "PROYEK" : "PROJECTS",
+  title: isID ? "Proyek & Studi Kasus" : "Projects & Case Studies",
+  detailLabel: isID ? "Lihat Detail Proyek" : "View Case Study",
+  repositoryLabel: isID ? "Kode di GitHub" : "GitHub Repo",
+  designLabel: isID ? "Desain Figma" : "Figma Design",
+  projects: isID
+    ? [
+        {
+          slug: "emosi-deteksi",
+          title: "SERIN",
+          category: "Tugas Akhir • AI & Computer Vision",
+          description:
+            "Prototipe aplikasi web untuk membantu konselor mengamati distribusi ekspresi emosi mahasiswa selama sesi konseling melalui deteksi wajah secara real-time menggunakan model LightExNet V2.",
+          collaboration:
+            "Smart Emotion Recognition for Integrated Counseling - dirancang sebagai alat bantu observasi konselor, bukan alat diagnosis psikologis.",
+          image: "/images/projects/serin/01-dashboard.png",
+          imageAlt:
+            "Dashboard SERIN yang menampilkan ringkasan aktivitas konseling dan distribusi lima kategori emosi.",
+          tags: [
+            "React",
+            "FastAPI",
+            "Python",
+            "OpenCV",
+            "TensorFlow / Keras",
+            "LightExNet V2",
+          ],
+          repository: "https://github.com/rizkiikzir/emosi-deteksi",
+          frameType: "browser" as FrameType,
+        },
+        {
+          slug: "sim-yantek",
+          title: "SIM-YANTEK",
+          category: "Proyek Magang • Aplikasi Mobile",
+          description:
+            "Aplikasi mobile untuk pencatatan progres pekerjaan pelayanan teknik (YANTEK). Mendukung input laporan lapangan beserta foto bukti, pemantauan status pengerjaan, hingga verifikasi oleh admin.",
+          collaboration:
+            "Dikembangkan selama masa magang di PT PLN (Persero) UP3 Lhokseumawe dengan bimbingan mentor lapangan.",
+          image: "/images/projects/sim-yantek/02-dashboard.png",
+          imageAlt:
+            "Dashboard aplikasi SIM-YANTEK yang menampilkan ringkasan dan daftar progres pekerjaan pelayanan teknik.",
+          tags: ["Flutter", "Dart", "Node.js", "Express", "PostgreSQL"],
+          repository: "https://github.com/rizkiikzir/monitoring-yantek",
+          frameType: "mobile" as FrameType,
+        },
+        {
+          slug: "teras-kita",
+          title: "Teras Kita",
+          category: "Proyek Kelompok • UI/UX Design (POS Kafe)",
+          description:
+            "Perancangan antarmuka sistem Point of Sale (POS) untuk operasional kafe, mencakup tampilan dashboard kasir, pengelolaan pesanan, pemilihan menu dan meja, pembayaran, hingga laporan transaksi.",
+          collaboration:
+            "Dikerjakan sebagai proyek kelompok dengan fokus pada perancangan alur pengguna dan antarmuka di Figma.",
+          image: "/images/projects/teras-kita/02-dashboard.png",
+          imageAlt:
+            "Dashboard POS Teras Kita yang menampilkan ringkasan pesanan, daftar order, pembayaran, dan menu populer.",
+          tags: ["Figma", "UI/UX Design", "Point of Sale (POS)"],
+          repository: "",
+          designUrl:
+            "https://www.figma.com/design/jOGAdzXpd5P5uVx56dQ6Nv/UI-UX-KELOMPOK-1--POS-?node-id=0-1&t=CUcnu5hlXIGfYkdA-1",
+          frameType: "tablet" as FrameType,
+        },
+      ]
+    : [
+        {
+          slug: "emosi-deteksi",
+          title: "SERIN",
+          category: "Final Project • AI & Computer Vision",
+          description:
+            "A web application prototype helping counselors observe students' facial expression distributions during counseling sessions through real-time emotion detection powered by the LightExNet V2 model.",
+          collaboration:
+            "Smart Emotion Recognition for Integrated Counseling - built as an observation aid for counselors, not a psychological diagnostic tool.",
+          image: "/images/projects/serin/01-dashboard.png",
+          imageAlt:
+            "SERIN dashboard showing counseling activity summaries and the distribution of five emotion categories.",
+          tags: [
+            "React",
+            "FastAPI",
+            "Python",
+            "OpenCV",
+            "TensorFlow / Keras",
+            "LightExNet V2",
+          ],
+          repository: "https://github.com/rizkiikzir/emosi-deteksi",
+          frameType: "browser" as FrameType,
+        },
+        {
+          slug: "sim-yantek",
+          title: "SIM-YANTEK",
+          category: "Internship Project • Mobile App",
+          description:
+            "A mobile application for logging technical service (YANTEK) field progress. Supports field reports with photo evidence, status-based progress tracking, and an admin verification workflow.",
+          collaboration:
+            "Built during an internship at PT PLN (Persero) UP3 Lhokseumawe under mentor supervision.",
+          image: "/images/projects/sim-yantek/02-dashboard.png",
+          imageAlt:
+            "SIM-YANTEK dashboard showing summaries and a list of technical-service work progress reports.",
+          tags: ["Flutter", "Dart", "Node.js", "Express", "PostgreSQL"],
+          repository: "https://github.com/rizkiikzir/monitoring-yantek",
+          frameType: "mobile" as FrameType,
+        },
+        {
+          slug: "teras-kita",
+          title: "Teras Kita",
+          category: "Group Project • UI/UX Design (Café POS)",
+          description:
+            "An interface design concept for a café Point of Sale (POS) system covering the cashier dashboard, order management, menu and table selection, checkout flow, and transaction reports.",
+          collaboration:
+            "Developed as a group project focusing on user flow mapping and interface prototyping in Figma.",
+          image: "/images/projects/teras-kita/02-dashboard.png",
+          imageAlt:
+            "Teras Kita POS dashboard showing order summaries, order lists, payments, and popular menu items.",
+          tags: ["Figma", "UI/UX Design", "Point of Sale (POS)"],
+          repository: "",
+          designUrl:
+            "https://www.figma.com/design/jOGAdzXpd5P5uVx56dQ6Nv/UI-UX-KELOMPOK-1--POS-?node-id=0-1&t=CUcnu5hlXIGfYkdA-1",
+          frameType: "tablet" as FrameType,
+        },
+      ],
+};
+---
+
+<section
+  class="section project-section"
+  id={isID ? "proyek" : "projects"}
+>
+  <div class="container">
+    <header class="section-header">
+      <span class="section-number">{content.label}</span>
+      <h2 class="section-title">{content.title}</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+    </header>
+
+    <div class="projects-list">
+      {content.projects.map((project, index) => (
+        <article
+          class:list={[
+            "project-item",
+            index === 1 ? "project-text-left" : "project-image-left",
+          ]}
+        >
+          <header class="project-heading">
+            <p class="project-category mono-label">{project.category}</p>
+            <h3>{project.title}</h3>
+          </header>
+
+          <figure class="project-visual">
+            <div class:list={["device-frame", `device-frame--${project.frameType}`]}>
+              {project.frameType === "browser" && (
+                <div class="browser-bar" aria-hidden="true">
+                  <span class="browser-dots">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                  </span>
+                  <span class="browser-address"></span>
+                </div>
+              )}
+
+              {project.frameType === "mobile" && (
+                <div class="mobile-speaker" aria-hidden="true"></div>
+              )}
+
+              {project.frameType === "tablet" && (
+                <span class="tablet-camera" aria-hidden="true"></span>
+              )}
+
+              <div class="device-screen">
+                <img
+                  src={project.image}
+                  alt={project.imageAlt}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </figure>
+
+          <div class="project-details">
+            <p class="project-description">
+              {project.description}
+            </p>
+
+            {project.collaboration && (
+              <p class="project-collaboration">
+                {project.collaboration}
+              </p>
+            )}
+
+            {project.tags.length > 0 && (
+              <ul
+                class="project-tags"
+                aria-label={isID ? "Teknologi proyek" : "Project technologies"}
+              >
+                {project.tags.map((tag) => (
+                  <li>{tag}</li>
+                ))}
+              </ul>
+            )}
+
+            <div class="project-links">
+              <a
+                class="project-detail-link"
+                href={
+  isID
+    ? `/proyek/${project.slug}`
+    : `/en/projects/${project.slug}`
+}
+              >
+                <span>{content.detailLabel}</span>
+                <span class="arrow-right" aria-hidden="true">→</span>
+              </a>
+
+              {project.repository && (
+                <a
+                  class="project-secondary-link"
+                  href={project.repository}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>{content.repositoryLabel}</span>
+                  <span class="arrow-up" aria-hidden="true">↗</span>
+                </a>
+              )}
+
+              {project.designUrl && (
+                <a
+                  class="project-secondary-link"
+                  href={project.designUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>{content.designLabel}</span>
+                  <span class="arrow-up" aria-hidden="true">↗</span>
+                </a>
+              )}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-item {
+  display: grid;
+  align-items: center;
+  column-gap: var(--grid-gap-desktop);
+  row-gap: var(--space-3);
+  padding-block: var(--space-7);
+  border-bottom: 1px solid var(--color-border);
+}
+
+  .project-item:first-child {
+    padding-top: 0;
+  }
+
+  .project-item:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .project-image-left {
+    grid-template-columns: minmax(0, 6.5fr) minmax(0, 5.5fr);
+    grid-template-areas:
+      "visual heading"
+      "visual details";
+  }
+
+  .project-text-left {
+    grid-template-columns: minmax(0, 5.5fr) minmax(0, 6.5fr);
+    grid-template-areas:
+      "heading visual"
+      "details visual";
+  }
+
+  .project-heading {
+    grid-area: heading;
+    align-self: end;
+  }
+
+  .project-category {
+    margin-bottom: var(--space-2);
+    color: var(--color-accent);
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+  }
+
+  .project-heading h3 {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 1.625rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
+  /* Wadah showcase fleksibel: mengikuti proporsi perangkat tanpa memotong gambar */
+  .project-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-area: visual;
+    width: 100%;
+    margin: 0;
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background-color: color-mix(in srgb, var(--color-surface) 93%, #000);
+  }
+
+  .device-frame {
+    position: relative;
+    transition: transform 300ms ease;
+  }
+
+  @media (hover: hover) {
+    .project-visual:hover .device-frame {
+      transform: translateY(-2px);
+    }
+  }
+
+  /* Gambar selalu 100% utuh mengikuti rasio asli */
+  .device-screen {
+    width: 100%;
+    overflow: hidden;
+    background: #ffffff;
+  }
+
+  .device-screen img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* 1. Browser / Desktop Frame (SERIN) */
+  .device-frame--browser {
+    width: 100%;
+    border: 1.5px solid #262b29;
+    border-radius: 8px;
+    background: #ffffff;
+    overflow: hidden;
+    /* Browser */
+    box-shadow: 0 8px 20px -12px rgba(0, 0, 0, 0.12);
+  }
+
+  .browser-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    height: 22px;
+    padding-inline: 0.625rem;
+    border-bottom: 1px solid var(--color-border);
+    background-color: #f3f2ee;
+  }
+
+  .browser-dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .browser-dots i {
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #c5c3bc;
+  }
+
+  .browser-address {
+    flex: 1;
+    max-width: 140px;
+    height: 8px;
+    border-radius: 999px;
+    background-color: #e4e2dc;
+  }
+
+  /* 2. Smartphone Frame (SIM-YANTEK) */
+  .device-frame--mobile {
+    width: 100%;
+    max-width: 215px;
+    padding: 8px;
+    border-radius: 24px;
+    background-color: #1f2422;
+    /* Mobile */
+    box-shadow: 0 10px 22px -12px rgba(0, 0, 0, 0.14);
+  }
+
+  .mobile-speaker {
+    width: 32px;
+    height: 3px;
+    margin: 1px auto 7px;
+    border-radius: 999px;
+    background-color: #3d4441;
+  }
+
+  .device-frame--mobile .device-screen {
+    border-radius: 16px;
+  }
+
+  /* 3. Tablet Landscape Frame (Teras Kita) */
+  .device-frame--tablet {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 94%;
+    padding: 10px 15px 10px 13px;
+    border-radius: 16px;
+    background-color: #1f2422;
+    /* Tablet */
+    box-shadow: 0 10px 22px -12px rgba(0, 0, 0, 0.12);
+  }
+
+  .tablet-camera {
+    flex-shrink: 0;
+    width: 4px;
+    height: 4px;
+    margin-right: 9px;
+    border-radius: 50%;
+    background-color: #464e4a;
+  }
+
+  .device-frame--tablet .device-screen {
+    border-radius: 7px;
+  }
+
+  .project-details {
+    grid-area: details;
+    align-self: start;
+    min-width: 0;
+  }
+
+  .project-description {
+    margin-bottom: var(--space-3);
+    color: var(--color-text-primary);
+    line-height: 1.7;
+  }
+
+  .project-collaboration {
+    margin-bottom: var(--space-4);
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: var(--space-4) 0 var(--space-5);
+    padding: 0;
+    list-style: none;
+  }
+
+  .project-tags li {
+    padding: 0.25rem 0.625rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background-color: color-mix(in srgb, var(--color-surface) 92%, #000);
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .project-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-5);
+    margin-top: var(--space-5);
+  }
+
+  .project-detail-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.5rem 0.95rem;
+    border: 1px solid var(--color-accent);
+    border-radius: 4px;
+    background-color: color-mix(in srgb, var(--color-accent) 8%, transparent);
+    color: var(--color-accent);
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition:
+      background-color 180ms ease,
+      color 180ms ease;
+  }
+
+  .project-detail-link:hover {
+    background-color: var(--color-accent);
+    color: var(--color-surface);
+  }
+
+  .project-detail-link .arrow-right {
+    display: inline-block;
+    transition: transform 180ms ease;
+  }
+
+  .project-detail-link:hover .arrow-right {
+    transform: translateX(3px);
+  }
+
+  .project-secondary-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding-bottom: 3px;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition:
+      color 180ms ease,
+      border-color 180ms ease;
+  }
+
+  .project-secondary-link:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .project-secondary-link .arrow-up {
+    display: inline-block;
+    transition: transform 180ms ease;
+  }
+
+  .project-secondary-link:hover .arrow-up {
+    transform: translate(2px, -2px);
+  }
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .project-item {
+    column-gap: var(--grid-gap-tablet);
+    padding-block: var(--space-7);
+  }
+
+  .project-image-left,
+  .project-text-left {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .project-heading h3 {
+    font-size: 1.35rem;
+  }
+
+  .project-visual {
+    padding: 1rem;
+  }
+
+  .device-frame--mobile {
+    max-width: 175px;
+    padding: 6px;
+    border-radius: 20px;
+  }
+
+  .device-frame--mobile .device-screen {
+    border-radius: 14px;
+  }
+
+  .device-frame--tablet {
+    max-width: 100%;
+    padding: 8px 11px 8px 10px;
+    border-radius: 13px;
+  }
+}
+
+  /* Mobile */
+  @media (max-width: 767px) {
+    .project-item {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        "heading"
+        "visual"
+        "details";
+      row-gap: var(--space-4);
+      padding-block: var(--space-6);
+    }
+
+    .project-heading h3 {
+      font-size: 1.35rem;
+    }
+
+    .project-visual {
+      padding: 0.9rem;
+    }
+
+    .browser-bar {
+      height: 18px;
+    }
+
+    .device-frame--mobile {
+      max-width: 185px;
+      padding: 6px;
+      border-radius: 20px;
+    }
+
+    .device-frame--mobile .device-screen {
+      border-radius: 14px;
+    }
+
+    .device-frame--tablet {
+      max-width: 100%;
+      padding: 7px 10px 7px 9px;
+      border-radius: 12px;
+    }
+
+    .tablet-camera {
+      width: 3px;
+      height: 3px;
+      margin-right: 6px;
+    }
+
+    .project-description {
+      font-size: 0.9375rem;
+    }
+
+    .project-tags li {
+      font-size: 0.72rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .device-frame,
+    .project-detail-link .arrow-right,
+    .project-secondary-link .arrow-up {
+      transition: none;
+    }
+  }
+</style>

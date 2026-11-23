@@ -1,0 +1,357 @@
+---
+interface Props {
+  lang?: "id" | "en";
+}
+
+const { lang = "id" } = Astro.props;
+const isID = lang === "id";
+
+const content = {
+  status: isID
+  ? "Terbuka untuk peluang kerja"
+  : "Open to Work Opportunities",
+  greeting: isID ? "Halo, saya" : "Hello, I'm",
+  name: "Muhammad Rizki.",
+  role: isID
+    ? "Sarjana Terapan Teknik Informatika"
+    : "Applied Bachelor of Informatics Engineering",
+  description: isID
+    ? "Tertarik pada pengembangan aplikasi web, pengolahan data, dan infrastruktur jaringan. Berpengalaman membantu digitalisasi data jaringan konstruksi di PT PLN, serta memiliki pengalaman dalam perawatan dan penanganan masalah perangkat keras komputer."
+    : "Interested in web application development, data processing, and network infrastructure. Experienced in supporting the digitization of network construction data at PT PLN, as well as computer hardware maintenance and troubleshooting.",
+  primaryCTA: isID ? "Lihat Proyek" : "Explore Projects",
+  secondaryCTA: isID ? "Tentang Saya" : "About Me",
+  photoCaption: isID
+    ? "Politeknik Negeri Lhokseumawe • Lulusan 2026"
+    : "Lhokseumawe State Polytechnic • Class of 2026",
+};
+
+const projectsHref = isID ? "#proyek" : "#projects";
+const aboutHref = isID ? "#tentang" : "#about";
+---
+
+<section class="hero" id="beranda" aria-labelledby="hero-title">
+  <div class="container hero-grid">
+    <div class="hero-content">
+      <div class="status-badge">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>{content.status}</span>
+      </div>
+
+      <p class="hero-greeting">{content.greeting}</p>
+
+      <h1 class="hero-title" id="hero-title">
+        {content.name}
+      </h1>
+
+      <p class="hero-role">{content.role}</p>
+
+      <p class="hero-description">
+        {content.description}
+      </p>
+
+      <div class="hero-actions">
+        <a class="hero-button hero-button-primary" href={projectsHref}>
+          {content.primaryCTA}
+        </a>
+
+        <a class="hero-button hero-button-secondary" href={aboutHref}>
+          {content.secondaryCTA}
+        </a>
+      </div>
+
+      <div class="hero-socials" aria-label="Social media">
+        <a
+          href="https://github.com/rizkiikzir"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub Muhammad Rizki (buka tab baru)"
+        >
+          <span>GitHub</span>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a
+          href="https://www.linkedin.com/in/muhammadrizki4310/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn Muhammad Rizki (buka tab baru)"
+        >
+          <span>LinkedIn</span>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-portrait">
+      <figure class="portrait-frame">
+        <img
+          class="portrait-image"
+          src="/images/profile.jpg"
+          alt="Foto potret Muhammad Rizki"
+        />
+        <figcaption class="portrait-caption">
+          {content.photoCaption}
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+  display: flex;
+  align-items: center;
+  padding-block: var(--space-10) var(--space-7);
+}
+
+  .hero-grid {
+    display: grid;
+    width: 100%;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: center;
+    gap: var(--grid-gap-desktop);
+  }
+
+  .hero-content {
+    max-width: 38rem;
+  }
+
+  .status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0;
+  margin-bottom: var(--space-6);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.025em;
+}
+
+  .status-dot {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: #2e7d32;
+}
+
+  .hero-greeting {
+    margin-bottom: var(--space-1);
+    color: var(--color-text-secondary);
+    font-size: 1.0625rem;
+  }
+
+ .hero-title {
+  margin-bottom: 0.5rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 3.75rem);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+  .hero-role {
+    margin-bottom: var(--space-5);
+    color: var(--color-accent);
+    font-size: 1.0625rem;
+    font-weight: 500;
+  }
+
+  .hero-description {
+    max-width: 36rem;
+    margin-bottom: var(--space-6);
+    color: var(--color-text-secondary);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .hero-button {
+    display: inline-flex;
+    min-height: 46px;
+    align-items: center;
+    justify-content: center;
+    padding: 0.7rem 1.35rem;
+    border: 1px solid var(--color-accent);
+    border-radius: 4px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    transition:
+      transform 120ms ease,
+      color var(--duration-normal) var(--ease-standard),
+      background-color var(--duration-normal) var(--ease-standard),
+      border-color var(--duration-normal) var(--ease-standard);
+  }
+
+  .hero-button:active {
+    transform: translateY(1px);
+  }
+
+  .hero-button-primary {
+    background-color: var(--color-accent);
+    color: var(--color-surface);
+  }
+
+  .hero-button-primary:hover {
+    background-color: color-mix(
+      in srgb,
+      var(--color-accent) 85%,
+      var(--color-text-primary)
+    );
+    color: var(--color-surface);
+  }
+
+  .hero-button-secondary {
+    background-color: transparent;
+    color: var(--color-accent);
+  }
+
+  .hero-button-secondary:hover {
+    background-color: var(--color-accent-soft);
+    color: var(--color-accent);
+  }
+
+  .hero-socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-5);
+    margin-top: var(--space-7);
+  }
+
+  .hero-socials a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding-bottom: 3px;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+    transition:
+      color var(--duration-normal) var(--ease-standard),
+      border-color var(--duration-normal) var(--ease-standard);
+  }
+
+  .hero-socials a .arrow {
+    display: inline-block;
+    transition: transform 180ms ease;
+  }
+
+  .hero-socials a:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .hero-socials a:hover .arrow {
+    transform: translate(2px, -2px);
+  }
+
+  .hero-portrait {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  .portrait-frame {
+    margin: 0;
+    width: 100%;
+    max-width: 360px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: color-mix(in srgb, var(--color-surface) 95%, #000);
+    box-shadow: 0 6px 18px -12px rgba(0, 0, 0, 0.10);
+  }
+
+  .portrait-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  .portrait-caption {
+    padding: 0.65rem 0.85rem;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.01em;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .hero {
+  padding-block: var(--space-9) 3rem;
+  }
+
+    .hero-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--grid-gap-tablet);
+    }
+
+    .hero-description {
+      font-size: 1rem;
+    }
+
+    .portrait-frame {
+      max-width: 300px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .hero {
+  padding-block: 3rem 2rem;
+  }
+
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-7);
+    }
+
+    .status-badge {
+      margin-bottom: var(--space-4);
+      font-size: 0.7rem;
+    }
+
+    .hero-greeting {
+      font-size: 0.95rem;
+    }
+
+  .hero-title {
+  margin-bottom: 0.35rem;
+  line-height: 1.15;
+}
+
+    .hero-role {
+      font-size: 0.95rem;
+      margin-bottom: var(--space-4);
+    }
+
+    .hero-description {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .hero-socials {
+      margin-top: var(--space-5);
+    }
+
+    .hero-portrait {
+      justify-content: flex-start;
+    }
+
+    .portrait-frame {
+      max-width: 320px;
+    }
+  }
+</style>
