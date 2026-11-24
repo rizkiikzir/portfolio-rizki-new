@@ -94,15 +94,24 @@ const aboutHref = isID ? "#tentang" : "#about";
 
     <div class="hero-portrait">
       <figure class="portrait-frame">
-        <img
-          class="portrait-image"
-          src="/images/profile.jpg"
-          alt="Foto potret Muhammad Rizki"
-          {...getImageDimensions("/images/profile.jpg")}
-          loading="eager"
-          decoding="async"
-          fetchpriority="high"
-        />
+      <img
+        class="portrait-image"
+        src="/images/profile-557.webp"
+        srcset="
+          /images/profile-557.webp 557w,
+          /images/profile-1114.webp 1114w
+        "
+        sizes="
+          (max-width: 767px) 320px,
+          (max-width: 1023px) 300px,
+          360px
+        "
+        alt="Foto potret Muhammad Rizki"
+        {...getImageDimensions("/images/profile-557.webp")}
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+      />
         <figcaption class="portrait-caption">
           {content.photoCaption}
         </figcaption>

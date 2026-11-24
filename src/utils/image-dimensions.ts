@@ -1,4 +1,6 @@
 const imageDimensions: Record<string, { width: number; height: number }> = {
+  "/images/profile-557.webp": { width: 557, height: 743 },
+  "/images/profile-1114.webp": { width: 1114, height: 1485 },
   "/images/profile.jpg": { width: 2561, height: 3415 },
   "/images/education/politeknik-negeri-lhokseumawe.png": {
     width: 228,
