@@ -2,6 +2,7 @@
 ---
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
 import "../styles/global.css";
 
 interface Props {
@@ -77,6 +78,8 @@ const resolvedDescription =
     </main>
 
     <SiteFooter lang={lang} />
+
+    <SpeedInsights />
 
     <script src="../scripts/scroll-motion.ts"></script>
   </body>
